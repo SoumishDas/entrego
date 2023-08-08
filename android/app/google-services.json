@@ -14,7 +14,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "504381590799-app6n0kaicp0olcj66tsla9a38t8ssd3.apps.googleusercontent.com",
+          "client_id": "504381590799-83rjn00fjeeomi3n05k9dg9ajahgaopn.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -27,36 +27,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "504381590799-app6n0kaicp0olcj66tsla9a38t8ssd3.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:504381590799:android:e5fbec297fa6e80f68427a",
-        "android_client_info": {
-          "package_name": "com.example.flutter_app"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "504381590799-app6n0kaicp0olcj66tsla9a38t8ssd3.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCBnma8SWUcbJ6Ixf5ksZ6WSatnxjqpqjw"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "504381590799-app6n0kaicp0olcj66tsla9a38t8ssd3.apps.googleusercontent.com",
+              "client_id": "504381590799-83rjn00fjeeomi3n05k9dg9ajahgaopn.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

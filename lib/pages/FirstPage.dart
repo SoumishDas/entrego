@@ -1,3 +1,4 @@
+import 'package:entrego/utils/auth.dart';
 import 'package:flutter/material.dart';
 import '../utils/MyRoutes.dart';
 
@@ -11,7 +12,9 @@ class FirstPage extends StatefulWidget {
 class _FirstPageState extends State<FirstPage> {
   bool onChanged = false;
 
-  moveToHome(BuildContext context) async {
+  AuthState authState = AuthState();
+
+  moveTo2ndPg(BuildContext context) async {
     setState(() {
       onChanged = true;
     });
@@ -28,15 +31,17 @@ class _FirstPageState extends State<FirstPage> {
     return Scaffold(
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
             InkWell(
-              onTap: () {},
+              onTap: () {
+                moveTo2ndPg(context);
+              },
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 1000),
-                width: onChanged ? 50 : 150,
+                width: onChanged ? 50 : 100,
                 height: onChanged ? 50 : 40,
-                alignment: Alignment.center,
+                alignment: Alignment.bottomRight,
                 decoration: BoxDecoration(
                     color: Colors.red,
                     borderRadius: BorderRadius.circular(onChanged ? 50 : 8)),
@@ -46,28 +51,7 @@ class _FirstPageState extends State<FirstPage> {
                         color: Colors.white,
                       )
                     : const Text(
-                        "Login",
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-              ),
-            ),
-            InkWell(
-              onTap: () {},
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 1000),
-                width: onChanged ? 50 : 150,
-                height: onChanged ? 50 : 40,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(onChanged ? 50 : 8)),
-                child: onChanged
-                    ? const Icon(
-                        Icons.arrow_forward_sharp,
-                        color: Colors.white,
-                      )
-                    : const Text(
-                        "Sign Up",
+                        "Continue",
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
               ),
