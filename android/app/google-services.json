@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "504381590799",
+    "project_id": "entrego-b8b7e",
+    "storage_bucket": "entrego-b8b7e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:504381590799:android:aaeec537c8cf6b9168427a",
+        "android_client_info": {
+          "package_name": "com.example.entrego"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "504381590799-app6n0kaicp0olcj66tsla9a38t8ssd3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBnma8SWUcbJ6Ixf5ksZ6WSatnxjqpqjw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "504381590799-app6n0kaicp0olcj66tsla9a38t8ssd3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:504381590799:android:e5fbec297fa6e80f68427a",
+        "android_client_info": {
+          "package_name": "com.example.flutter_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "504381590799-app6n0kaicp0olcj66tsla9a38t8ssd3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBnma8SWUcbJ6Ixf5ksZ6WSatnxjqpqjw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "504381590799-app6n0kaicp0olcj66tsla9a38t8ssd3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
