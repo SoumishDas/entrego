@@ -11,12 +11,6 @@ import 'firebase_options.dart';
 // Imports from UTIL
 import 'utils/MyRoutes.dart';
 import 'globalState.dart';
-// Page IMPORTS
-import 'pages/homeEP.dart';
-import 'pages/homeINV.dart';
-import 'pages/login.dart';
-import 'pages/signup.dart';
-import 'pages/FirstPage.dart';
 
 const Color darkBlue = Color.fromARGB(252, 18, 32, 47);
 
@@ -49,6 +43,8 @@ void main() async {
 class MyApp extends StatelessWidget {
   final DateFormat formatter = DateFormat('MM/dd HH:mm:SS');
 
+  final MyRoutes = new MyRoutes;
+
   MyApp({Key? key}) : super(key: key);
 
   @override
@@ -56,18 +52,15 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => BaseState(),
       child: MaterialApp(
-        theme: ThemeData(
-            fontFamily: GoogleFonts.quicksand().fontFamily,
-            primarySwatch: Colors.red),
-        darkTheme: ThemeData(brightness: Brightness.dark),
-        debugShowCheckedModeBanner: false,
-        //Routes of Pages
-        initialRoute: MyRoutes.homepage,
-        routes: {
-          MyRoutes.homepage: (context) => const HomePage(title: "Catalog App"),
-          MyRoutes.loginpage: (context) => LoginPage(),
-        },
-      ),
+          theme: ThemeData(
+              fontFamily: GoogleFonts.quicksand().fontFamily,
+              primarySwatch: Colors.red),
+          darkTheme: ThemeData(brightness: Brightness.dark),
+          debugShowCheckedModeBanner: false,
+          //Routes of Pages
+          routes: 
+          // initialRoute: MyRoutes.homepage,
+          ),
     );
   }
 }

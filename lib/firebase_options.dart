@@ -16,14 +16,14 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for android - '
-          'try to add using FlutLab Firebase Configuration',
-        );
+        return android;
       case TargetPlatform.iOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for iOS - '
@@ -51,10 +51,11 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-      apiKey: "AIzaSyAhE5iTdU1MflQxb4_M_uHiXJR9EC_mE_I",
-      authDomain: "nanochat.firebaseapp.com",
-      projectId: "firebase-nanochat",
-      messagingSenderId: '137230848633',
-      appId: '1:137230848633:web:89e9b54f881fa0b843baa8');
+  static const FirebaseOptions android = FirebaseOptions(
+    apiKey: 'AIzaSyCBnma8SWUcbJ6Ixf5ksZ6WSatnxjqpqjw',
+    appId: '1:504381590799:android:e5fbec297fa6e80f68427a',
+    messagingSenderId: '504381590799',
+    projectId: 'entrego-b8b7e',
+    storageBucket: 'entrego-b8b7e.appspot.com',
+  );
 }
