@@ -1,4 +1,7 @@
-name: dhdhd
+
+
+
+name: entrego
 description: A new Flutter project.
 
 # The following defines the version and build number for your application.
@@ -23,6 +26,8 @@ dependencies:
   firebase_auth: ^4.3.0
   cloud_firestore: ^4.4.5
   intl: ^0.18.1
+  google_fonts: any
+  provider: ^6.0.5
 
 dev_dependencies:
   flutter_test:
