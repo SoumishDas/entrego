@@ -39,8 +39,6 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final DateFormat formatter = DateFormat('MM/dd HH:mm:SS');
-
   final MyRoutes routes = MyRoutes();
 
   MyApp({Key? key}) : super(key: key);

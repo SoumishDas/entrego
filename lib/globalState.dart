@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class BaseState extends ChangeNotifier {
-  int _count = 0;
+  final FirebaseAuth auth = FirebaseAuth.instance;
 
-  int get count => _count;
+  int get auth => _auth;
 
   void increment() {
     _count++;

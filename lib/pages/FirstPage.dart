@@ -18,9 +18,9 @@ class _FirstPageState extends State<FirstPage> {
     setState(() {
       onChanged = true;
     });
-    var myroutes = MyRoutes();
+
     await Future.delayed(const Duration(milliseconds: 2000));
-    await Navigator.pushNamed(context, myroutes.loginpage);
+    await Navigator.pushNamed(context, MyRoutes.loginpage);
     setState(() {
       onChanged = false;
     });

@@ -8,11 +8,11 @@ import '../pages/signup.dart';
 import '../pages/FirstPage.dart';
 
 class MyRoutes {
-  String initialPage = "/";
-  String homeINVPage = "/homeINV";
-  String homeEPPage = "/homeEP";
-  String loginpage = "/login";
-  String signupPage = "/signup";
+  static String initialPage = "/";
+  static String homeINVPage = "/homeINV";
+  static String homeEPPage = "/homeEP";
+  static String loginpage = "/login";
+  static String signupPage = "/signup";
 
   Map<String, Widget Function(BuildContext)> getRoutes(BuildContext context) {
     return {
