@@ -80,6 +80,44 @@ class EntrepreneurIdea {
     });
   }
 
+  Future<bool> getIdea() async {
+    final QuerySnapshot res = await FirebaseFirestore.instance
+        .collection('app_users')
+        .doc(entrepreneurId)
+        .collection('ideas')
+        .get();
+
+    final List<DocumentSnapshot> documents = res.docs;
+    if (documents.isEmpty) {
+      return false;
+    } else {
+      Map<String, dynamic> data =
+          documents.first.data()! as Map<String, dynamic>;
+
+      name = data["name"];
+      sIdeaDescription = data["sIdeaDescription"];
+      bIdeaDescription = data["bIdeaDescription"];
+      fundingNeeded = data["fundingNeeded"];
+      equityOffered = data["equityOffered"];
+      capitalRaised = data["capitalRaised"];
+      contactInfo = data["contactInfo"];
+      tags = List<String>.from(data["tags"] ?? []);
+      techUsed = List<String>.from(data["techUsed"] ?? []);
+
+      // Load investors
+      List<dynamic> investorList = data["investors"] ?? [];
+      investors = investorList.map((item) {
+        return Investor(
+          investorId: item["investorId"],
+          amountInvested: item["amountInvested"],
+          equityObtained: item["equityObtained"],
+        );
+      }).toList();
+
+      return true;
+    }
+  }
+
   Future<void> addInvestment(Investor investor) async {
     investors.add(investor);
     capitalRaised += investor.amountInvested;

@@ -1,4 +1,9 @@
+import 'dart:ui';
+
+import 'package:entrego/globalState.dart';
+import 'package:entrego/utils/f_store.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProductDetailsPage extends StatefulWidget {
   @override
@@ -8,6 +13,13 @@ class ProductDetailsPage extends StatefulWidget {
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
   @override
   Widget build(BuildContext context) {
+    BaseState baseState = Provider.of<BaseState>(context, listen: false);
+
+    EntrepreneurIdea idea = baseState.idea;
+
+    baseState.idea.getIdea().then(
+          (value) => setState(() => (idea = baseState.idea)),
+        );
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -15,10 +27,10 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
           children: [
             Container(
               height: 250, // Adjust the image container's height as needed
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(
-                      'assets/product_image.jpg'), // Replace with your image
+                      'assets/images/IDEATION.jpg'), // Replace with your image
                   fit: BoxFit.cover,
                 ),
               ),
@@ -29,55 +41,34 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Product Name',
-                    style: TextStyle(
+                    idea.name,
+                    style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
-                    'Tagline: Revolutionizing the Industry',
-                    style: TextStyle(
+                    idea.sIdeaDescription,
+                    style: const TextStyle(
                       fontSize: 16,
                       fontStyle: FontStyle.italic,
                     ),
                   ),
-                  SizedBox(height: 16),
-                  Text(
-                    'Description:',
+                  const SizedBox(height: 16),
+                  const Text(
+                    'Description: ',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor eros ac euismod.',
-                    style: TextStyle(fontSize: 16),
+                    idea.bIdeaDescription,
+                    style: const TextStyle(fontSize: 16),
                   ),
-                  SizedBox(height: 16),
-                  Text(
-                    'Contact Details:',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    'Email: contact@example.com\nPhone: (123) 456-7890',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  SizedBox(height: 16),
-                  Text(
-                    'Capital Required: \$1,000,000',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  Text(
-                    'Equity Offered: 20%',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  SizedBox(height: 16),
-                  Text(
+                  const SizedBox(height: 16),
+                  const Text(
                     'Contacts:',
                     style: TextStyle(
                       fontSize: 18,
@@ -85,11 +76,20 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                     ),
                   ),
                   Text(
-                    'contacts',
-                    style: TextStyle(fontSize: 16),
+                    idea.contactInfo,
+                    style: const TextStyle(fontSize: 16),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Text(
+                    'Capital Required: \$ ${idea.fundingNeeded}',
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  Text(
+                    'Equity Offered: ${idea.equityOffered}%',
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  const SizedBox(height: 16),
+                  const Text(
                     'Technologies Used:',
                     style: TextStyle(
                       fontSize: 18,
@@ -99,14 +99,12 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                   Wrap(
                     spacing: 8,
                     children: [
-                      Chip(label: Text('AI')),
-                      Chip(label: Text('Machine Learning')),
-                      Chip(label: Text('IoT')),
+                      ...idea.techUsed.map((tech) => Chip(label: Text(tech))),
                       // Add more chips as needed
                     ],
                   ),
-                  SizedBox(height: 16),
-                  Text(
+                  const SizedBox(height: 16),
+                  const Text(
                     'Tags:',
                     style: TextStyle(
                       fontSize: 18,
@@ -116,9 +114,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                   Wrap(
                     spacing: 8,
                     children: [
-                      Chip(label: Text('Innovation')),
-                      Chip(label: Text('Technology')),
-                      Chip(label: Text('Startup')),
+                      ...idea.tags.map((tag) => Chip(label: Text(tag))),
                       // Add more chips as needed
                     ],
                   ),
