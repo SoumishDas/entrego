@@ -7,6 +7,7 @@ import '../pages/homeINV.dart';
 import '../pages/login.dart';
 
 import '../pages/FirstPage.dart';
+import '../pages/select.dart';
 
 class MyRoutes {
   static String initialPage = "/";
@@ -15,10 +16,11 @@ class MyRoutes {
   static String loginpage = "/login";
   static String signupPage = "/signup";
   static String choicePage = "/choose";
+  static String selectPage = "/signup/select";
 
   Map<String, Widget Function(BuildContext)> getRoutes(BuildContext context) {
     return {
-      initialPage: (context) => const choice(),
+      initialPage: (context) => const select(),
       homeEPPage: (context) => const HomeEP(),
       homeINVPage: (context) => const HomeINV(),
       loginpage: (context) => const login(),

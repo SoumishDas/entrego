@@ -51,7 +51,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           fontFamily: GoogleFonts.quicksand().fontFamily,
         ),
-        darkTheme: ThemeData(brightness: Brightness.dark),
         debugShowCheckedModeBanner: false,
         //Routes of Pages
         // initialRoute: MyRoutes.homepage,
