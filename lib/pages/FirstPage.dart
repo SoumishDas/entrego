@@ -10,21 +10,13 @@ class FirstPage extends StatefulWidget {
 }
 
 class _FirstPageState extends State<FirstPage> {
-  bool onChanged = false;
   Color purple = const Color.fromRGBO(52, 25, 72, 1);
   Color black = const Color.fromRGBO(14, 5, 15, 1);
   AuthState authState = AuthState();
 
   moveTo2ndPg(BuildContext context) async {
-    setState(() {
-      onChanged = true;
-    });
-
-    await Future.delayed(const Duration(milliseconds: 2000));
+    await Future.delayed(const Duration(milliseconds: 16));
     await Navigator.pushNamed(context, MyRoutes.loginpage);
-    setState(() {
-      onChanged = false;
-    });
   }
 
   @override

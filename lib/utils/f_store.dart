@@ -8,15 +8,41 @@ class FStore {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 }
 
+class Investor {
+  String investorId; // ID of the investor
+  double amountInvested;
+  double equityObtained;
+
+  Investor({
+    required this.investorId,
+    required this.amountInvested,
+    required this.equityObtained,
+  });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'investorId': investorId,
+      'amountInvested': amountInvested,
+      'equityObtained': equityObtained,
+    };
+  }
+}
+
 class EntrepreneurIdea {
   String entrepreneurId; // ID of the entrepreneur
   String ideaDescription;
   double fundingNeeded;
+  double equityOffered; // Percentage of equity offered to investors
+  double capitalRaised;
+  List<Investor> investors;
 
   EntrepreneurIdea({
     required this.entrepreneurId,
     required this.ideaDescription,
     required this.fundingNeeded,
+    required this.equityOffered,
+    this.capitalRaised = 0,
+    this.investors = const [],
   });
 
   Future<void> saveIdea() async {
@@ -27,9 +53,31 @@ class EntrepreneurIdea {
         .add({
           'ideaDescription': ideaDescription,
           'fundingNeeded': fundingNeeded,
+          'equityOffered': equityOffered,
+          'capitalRaised': capitalRaised,
         })
         .then((value) => print("Idea Saved"))
         .catchError((error) => print("Failed to save idea: $error"));
+  }
+
+  Future<void> addInvestment(Investor investor) async {
+    investors.add(investor);
+    capitalRaised += investor.amountInvested;
+
+    // Calculate equity based on the entrepreneur's equity offered and investor's investment
+    double entrepreneurEquity =
+        investor.amountInvested * (equityOffered / fundingNeeded);
+    investor.equityObtained += entrepreneurEquity;
+
+    await FirebaseFirestore.instance
+        .collection('app_users')
+        .doc(entrepreneurId)
+        .collection('ideas')
+        .doc()
+        .update({
+      'capitalRaised': capitalRaised,
+      'investors': FieldValue.arrayUnion([investor.toMap()])
+    });
   }
 }
 
