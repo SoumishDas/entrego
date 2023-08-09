@@ -11,7 +11,8 @@ class FirstPage extends StatefulWidget {
 
 class _FirstPageState extends State<FirstPage> {
   bool onChanged = false;
-
+  Color purple = const Color.fromRGBO(52, 25, 72, 1);
+  Color black = const Color.fromRGBO(14, 5, 15, 1);
   AuthState authState = AuthState();
 
   moveTo2ndPg(BuildContext context) async {
@@ -20,7 +21,7 @@ class _FirstPageState extends State<FirstPage> {
     });
     var myroutes = MyRoutes();
     await Future.delayed(const Duration(milliseconds: 2000));
-    await Navigator.pushNamed(context, myroutes.loginpage);
+    await Navigator.pushNamed(context, myroutes.signupPage);
     setState(() {
       onChanged = false;
     });
@@ -29,34 +30,72 @@ class _FirstPageState extends State<FirstPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            InkWell(
-              onTap: () {
-                moveTo2ndPg(context);
-              },
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 1000),
-                width: onChanged ? 50 : 100,
-                height: onChanged ? 50 : 40,
-                alignment: Alignment.bottomRight,
-                decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(onChanged ? 50 : 8)),
-                child: onChanged
-                    ? const Icon(
-                        Icons.arrow_forward_sharp,
-                        color: Colors.white,
-                      )
-                    : const Text(
-                        "Continue",
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
+      backgroundColor: const Color.fromRGBO(14, 5, 15, 1),
+      body: Container(
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/images/BG.jpg"),
+                fit: BoxFit.fitHeight)),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Text(
+                "Welcome",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 70,
+                    fontWeight: FontWeight.w900),
               ),
-            ),
-          ],
+              const SizedBox(
+                height: 250,
+              ),
+              InkWell(
+                onTap: () {
+                  moveTo2ndPg(context);
+                },
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 1000),
+                  width: 200,
+                  height: 50,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                      color: black, borderRadius: BorderRadius.circular(10)),
+                  child: const Text(
+                    "Login",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 25,
+                        fontWeight: FontWeight.w900),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              InkWell(
+                onTap: () {
+                  moveTo2ndPg(context);
+                },
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 1000),
+                  width: 200,
+                  height: 50,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                      color: black, borderRadius: BorderRadius.circular(10)),
+                  child: const Text(
+                    "Sign Up",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 25,
+                        fontWeight: FontWeight.w900),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
