@@ -79,20 +79,10 @@ class _FirstPageState extends State<FirstPage> {
                           // boxShadow: [20, 21, 22, 22],
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10)),
-                      child: const Row(
-                        children: [
-                          Text(
-                            "Continue",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 25,
-                                fontWeight: FontWeight.w900),
-                          ),
-                          Icon(
-                            Icons.forward_rounded,
-                            color: Colors.black,
-                          ),
-                        ],
+                      child: const Icon(
+                        Icons.forward_rounded,
+                        color: Colors.black,
+                        size: 50,
                       ),
                     ),
                   ),
