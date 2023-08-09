@@ -1,12 +1,15 @@
 // Page IMPORTS
 import 'package:flutter/material.dart';
 
-import '../pages/homeEP.dart';
-import '../pages/homeINV.dart';
+import '../pages/homeEP/homeEP.dart';
+import '../pages/homeEP/navbarEP.dart';
+import '../pages/homeINV/homeINV.dart';
+import '../pages/homeINV/navbarINV.dart';
 import '../pages/login.dart';
 import '../pages/signup.dart';
 import '../pages/FirstPage.dart';
 import '../pages/select.dart';
+import '../pages/choicePg2.dart';
 
 class MyRoutes {
   static String initialPage = "/";
@@ -15,15 +18,18 @@ class MyRoutes {
   static String loginpage = "/login";
   static String signupPage = "/signup";
   static String choicePage = "/choose";
+  static String choice2Page = "/choose2";
   static String selectPage = "/signup/select";
 
   Map<String, Widget Function(BuildContext)> getRoutes(BuildContext context) {
     return {
-      initialPage: (context) => const select(),
-      homeEPPage: (context) => const HomeEP(),
-      homeINVPage: (context) => const HomeINV(),
-      loginpage: (context) => const LoginPage(),
-      signupPage: (context) => const signup(),
+      // initialPage: (context) => const FirstPage(),
+      initialPage: (context) => const homeINV(),
+      homeEPPage: (context) => const homeEP(),
+      homeINVPage: (context) => const homeINV(),
+      loginpage: (context) => const login(),
+      choicePage: (context) => const choice(),
+      choice2Page: (context) => const choice2(),
     };
   }
 }
