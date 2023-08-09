@@ -161,7 +161,7 @@ class _loginState extends State<login> {
                                     ),
                                     InkWell(
                                       onTap: () {
-                                        mAuth.register(name, pw);
+                                        mAuth.register(context, name, pw);
                                       },
                                       child: AnimatedContainer(
                                         duration:

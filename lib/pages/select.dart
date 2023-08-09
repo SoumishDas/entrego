@@ -1,3 +1,4 @@
+import 'package:entrego/utils/MyRoutes.dart';
 import 'package:flutter/material.dart';
 
 class select extends StatefulWidget {
@@ -16,8 +17,16 @@ class _selectState extends State<select> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text("I am an ..."),
-            ElevatedButton(onPressed: () {}, child: Text("Investor")),
-            ElevatedButton(onPressed: () {}, child: Text("Entrepreneur")),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, MyRoutes.invSignupPage);
+                },
+                child: const Text("Investor")),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, MyRoutes.choicePage);
+                },
+                child: const Text("Entrepreneur")),
           ],
         ),
       ),

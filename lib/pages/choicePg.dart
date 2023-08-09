@@ -1,4 +1,6 @@
+import 'package:entrego/globalState.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class choice extends StatefulWidget {
   const choice({Key? key}) : super(key: key);
@@ -18,8 +20,18 @@ class _choiceState extends State<choice> {
         .toList();
   }
 
+  bool isInteger(String value) {
+    final RegExp regex = RegExp(r'^[0-9]+$');
+    return regex.hasMatch(value);
+  }
+
+  String firstName = "";
+  String lastName = "";
+  int capital = 0;
+
   @override
   Widget build(BuildContext context) {
+    BaseState baseState = Provider.of<BaseState>(context, listen: false);
     // Set up your logic to populate tagList based on input data
     // For example, you can use a function that fetches tag data from a source
     tagList = fetchTagsFromInput(); // Replace this with your logic
@@ -33,23 +45,39 @@ class _choiceState extends State<choice> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextFormField(
-                decoration: InputDecoration(labelText: 'First Name'),
+                decoration: const InputDecoration(labelText: 'First Name'),
+                onChanged: (value) {
+                  setState(() {
+                    firstName = value;
+                  });
+                },
               ),
               SizedBox(height: 10),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Last Name'),
+                decoration: const InputDecoration(labelText: 'Last Name'),
+                onChanged: (value) {
+                  setState(() {
+                    lastName = value;
+                  });
+                },
               ),
               SizedBox(height: 10),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Company'),
-              ),
-              SizedBox(height: 10),
-              TextFormField(
-                decoration: InputDecoration(labelText: 'Email'),
-              ),
-              SizedBox(height: 10),
-              TextFormField(
-                decoration: InputDecoration(labelText: 'Capital'),
+                decoration: const InputDecoration(labelText: 'Capital'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Capital cannot be empty";
+                  } else if (!isInteger(value)) {
+                    return "Capital has to be integer";
+                  } else {
+                    return null;
+                  }
+                },
+                onChanged: (value) {
+                  setState(() {
+                    capital = int.parse(value);
+                  });
+                },
               ),
               SizedBox(height: 10),
               Text('Tags:', style: TextStyle(fontSize: 16)),
@@ -63,7 +91,7 @@ class _choiceState extends State<choice> {
                           searchQuery = query;
                         });
                       },
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Search for tags',
                         prefixIcon: Icon(Icons.search),
                       ),
@@ -106,6 +134,13 @@ class _choiceState extends State<choice> {
                       ),
                       onPressed: () {
                         // Implement registration logic
+                        baseState.user.capital = capital;
+                        baseState.user.firstName = firstName;
+                        baseState.user.lastName = lastName;
+                        baseState.user.prefTags = selectedTags;
+                        baseState.user.isInvestor = true;
+
+                        baseState.user.addUser();
                       },
                       child: Text('Register'),
                     ),
