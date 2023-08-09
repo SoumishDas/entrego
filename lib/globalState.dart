@@ -1,13 +1,12 @@
+import 'package:entrego/utils/f_store.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class BaseState extends ChangeNotifier {
-  final FirebaseAuth auth = FirebaseAuth.instance;
+  final AppUser _user = AppUser();
 
-  int get auth => _auth;
+  AppUser get user => _user;
 
-  void increment() {
-    _count++;
+  void notify() {
     notifyListeners();
   }
 }

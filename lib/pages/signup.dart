@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import '../utils/MyRoutes.dart';
+import '../utils/auth.dart';
 
 class signup extends StatefulWidget {
   const signup({Key? key}) : super(key: key);
@@ -43,6 +44,8 @@ class _signupState extends State<signup> {
       });
     }
   }
+
+  final AuthState signUp = AuthState();
 
   @override
   Widget build(BuildContext context) {
@@ -198,7 +201,7 @@ class _signupState extends State<signup> {
                                     height: 5,
                                   ),
                                   ElevatedButton.icon(
-                                      onPressed: () {},
+                                      onPressed: () => signUp.signIn(context),
                                       style: ElevatedButton.styleFrom(
                                           backgroundColor: purple),
                                       icon: const Icon(Icons.g_mobiledata),

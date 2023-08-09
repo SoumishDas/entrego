@@ -13,6 +13,7 @@ class MyRoutes {
   static String homeEPPage = "/homeEP";
   static String loginpage = "/login";
   static String signupPage = "/signup";
+  static String choicePage = "/choose";
 
   Map<String, Widget Function(BuildContext)> getRoutes(BuildContext context) {
     return {
@@ -21,6 +22,7 @@ class MyRoutes {
       homeINVPage: (context) => const HomeINV(),
       loginpage: (context) => const LoginPage(),
       signupPage: (context) => const signup(),
+      //choicePage : (context) => ;
     };
   }
 }

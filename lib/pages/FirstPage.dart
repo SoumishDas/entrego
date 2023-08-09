@@ -53,7 +53,8 @@ class _FirstPageState extends State<FirstPage> {
               ),
               InkWell(
                 onTap: () {
-                  moveTo2ndPg(context);
+                  //moveTo2ndPg(context);
+                  authState.signIn(context);
                 },
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 1000),
