@@ -49,12 +49,12 @@ class MyApp extends StatelessWidget {
       create: (context) => BaseState(),
       child: MaterialApp(
         theme: ThemeData(
-            fontFamily: GoogleFonts.quicksand().fontFamily,
-            primarySwatch: Colors.red),
+          fontFamily: GoogleFonts.quicksand().fontFamily,
+        ),
         darkTheme: ThemeData(brightness: Brightness.dark),
         debugShowCheckedModeBanner: false,
         //Routes of Pages
-        //initialRoute: MyRoutes.homepage,
+        // initialRoute: MyRoutes.homepage,
         routes: routes.getRoutes(context),
       ),
     );
