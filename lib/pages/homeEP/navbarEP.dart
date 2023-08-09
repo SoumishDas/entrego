@@ -34,19 +34,26 @@ class _NavEPState extends State<NavEP> {
       }),
       items: const [
         BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          backgroundColor: Colors.white,
+          icon: Icon(
+            Icons.home,
+            color: Colors.white,
+          ),
           label: "Home",
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.settings),
-          backgroundColor: Colors.white,
+          icon: Icon(
+            Icons.settings,
+            color: Colors.white,
+          ),
           label: "Login",
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          backgroundColor: Colors.white,
+          icon: Icon(
+            Icons.person,
+            color: Colors.white,
+          ),
           label: "Profile",
+          backgroundColor: Colors.white,
         ),
       ],
     );

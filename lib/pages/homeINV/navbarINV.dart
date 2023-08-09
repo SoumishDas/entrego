@@ -34,20 +34,27 @@ class _NavINVState extends State<NavINV> {
       }),
       items: const [
         BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          backgroundColor: Colors.white,
+          icon: Icon(
+            Icons.home,
+            color: Colors.white,
+          ),
           label: "Home",
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.settings),
-          backgroundColor: Colors.white,
+          icon: Icon(
+            Icons.settings,
+            color: Colors.white,
+          ),
           label: "Login",
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.person),
+          icon: Icon(
+            Icons.person,
+            color: Colors.white,
+          ),
           backgroundColor: Colors.white,
           label: "Profile",
-        ),
+        )
       ],
     );
   }
