@@ -12,6 +12,7 @@ class mailAuth {
   void checkAppUser(BuildContext context, UserCredential userCred) {
     BaseState baseState = Provider.of<BaseState>(context, listen: false);
     baseState.user.email = userCred.user!.email!;
+    baseState.user.uid = userCred.user!.uid;
     baseState.user.getUser(userCred.user!.uid).then((value) {
       if (value == true) {
         //print(userCred.user.displayName);
@@ -21,7 +22,7 @@ class mailAuth {
           Navigator.pushNamed(context, MyRoutes.homeEPPage);
         }
       } else {
-        Navigator.pushNamed(context, MyRoutes.choicePage);
+        Navigator.pushNamed(context, MyRoutes.selectPage);
       }
     });
   }

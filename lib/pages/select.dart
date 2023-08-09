@@ -19,12 +19,12 @@ class _selectState extends State<select> {
             const Text("I am an ..."),
             ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, MyRoutes.invSignupPage);
+                  Navigator.pushNamed(context, MyRoutes.choicePage);
                 },
                 child: const Text("Investor")),
             ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, MyRoutes.choicePage);
+                  Navigator.pushNamed(context, MyRoutes.choice2Page);
                 },
                 child: const Text("Entrepreneur")),
           ],

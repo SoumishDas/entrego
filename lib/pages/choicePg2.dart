@@ -1,4 +1,7 @@
+import 'package:entrego/globalState.dart';
+import 'package:entrego/utils/MyRoutes.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class choice2 extends StatefulWidget {
   const choice2({Key? key}) : super(key: key);
@@ -18,8 +21,12 @@ class _choice2State extends State<choice2> {
         .toList();
   }
 
+  String firstName = "";
+  String lastName = "";
+
   @override
   Widget build(BuildContext context) {
+    BaseState baseState = Provider.of<BaseState>(context, listen: false);
     // Set up your logic to populate tagList based on input data
     // For example, you can use a function that fetches tag data from a source
     tagList = fetchTagsFromInput(); // Replace this with your logic
@@ -34,11 +41,20 @@ class _choice2State extends State<choice2> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextFormField(
-                  decoration: InputDecoration(labelText: 'First Name'),
-                ),
+                    decoration: InputDecoration(labelText: 'First Name'),
+                    onChanged: (value) {
+                      setState(() {
+                        firstName = value;
+                      });
+                    }),
                 SizedBox(height: 10),
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Last Name'),
+                  onChanged: (value) {
+                    setState(() {
+                      lastName = value;
+                    });
+                  },
                 ),
                 SizedBox(height: 10),
 
@@ -51,6 +67,21 @@ class _choice2State extends State<choice2> {
                     ),
                     onPressed: () {
                       // Implement registration logic
+
+                      baseState.user.firstName = firstName;
+                      baseState.user.lastName = lastName;
+
+                      baseState.user.isInvestor = false;
+
+                      baseState.user.addUser().then(
+                        (value) {
+                          if (value == true) {
+                            Navigator.pushNamed(context, MyRoutes.homeEPPage);
+                          } else {
+                            print("ERROR ADDING USER");
+                          }
+                        },
+                      );
                     },
                     child: Text('Register'),
                   ),

@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -124,6 +126,7 @@ class Investment {
 }
 
 class AppUser {
+  String uid;
   String firstName;
   String lastName;
   String email;
@@ -136,6 +139,7 @@ class AppUser {
   int capital;
 
   AppUser({
+    this.uid = "",
     this.firstName = "",
     this.lastName = "",
     this.email = '',
@@ -149,26 +153,32 @@ class AppUser {
   CollectionReference users =
       FirebaseFirestore.instance.collection('app_users');
 
-  Future<void> addUser() {
+  Future<bool> addUser() {
     // Call the user's CollectionReference to add a new user
-    return users
-        .add({
-          'firstName': firstName,
-          'lastName': lastName,
-          'email': email,
-          'company': company,
-          'isInvestor': isInvestor,
-          'prefTags': prefTags,
-          'capital': capital,
-        })
-        .then((value) => print("User Added"))
-        .catchError((error) => print("Failed to add user: $error"));
+    return users.doc(uid).set(
+      {
+        "uid": uid,
+        'firstName': firstName,
+        'lastName': lastName,
+        'email': email,
+        'company': company,
+        'isInvestor': isInvestor,
+        'prefTags': prefTags,
+        'capital': capital,
+      },
+    ).then((value) {
+      print("User Added");
+      return true;
+    }).catchError((error) {
+      print("Failed to add user: $error");
+      return false;
+    });
   }
 
   Future<bool> getUser(String uid) async {
     final QuerySnapshot res = await FirebaseFirestore.instance
         .collection('app_users')
-        .where('id', isEqualTo: uid)
+        .where('uid', isEqualTo: uid)
         .get(); //firebase query to get information about user
 
     final List<DocumentSnapshot> documents = res.docs;
@@ -183,7 +193,8 @@ class AppUser {
       email = data["email"];
       company = data["company"];
       isInvestor = data["isInvestor"];
-      prefTags = data["prefTags"];
+      prefTags = List<String>.from(data["prefTags"] ?? []);
+
       capital = data["capital"];
 
       return true;

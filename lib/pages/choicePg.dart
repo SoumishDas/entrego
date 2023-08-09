@@ -1,4 +1,5 @@
 import 'package:entrego/globalState.dart';
+import 'package:entrego/utils/MyRoutes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -140,7 +141,13 @@ class _choiceState extends State<choice> {
                         baseState.user.prefTags = selectedTags;
                         baseState.user.isInvestor = true;
 
-                        baseState.user.addUser();
+                        baseState.user.addUser().then((value) {
+                          if (value == true) {
+                            Navigator.pushNamed(context, MyRoutes.homeINVPage);
+                          } else {
+                            print("ERROR ADDING USER");
+                          }
+                        });
                       },
                       child: Text('Register'),
                     ),

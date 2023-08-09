@@ -26,12 +26,13 @@ class MyRoutes {
   Map<String, Widget Function(BuildContext)> getRoutes(BuildContext context) {
     return {
       // initialPage: (context) => const FirstPage(),
-      initialPage: (context) => const homeINV(),
+      initialPage: (context) => const FirstPage(),
       homeEPPage: (context) => const homeEP(),
       homeINVPage: (context) => const homeINV(),
-      loginpage: (context) => const LoginPage(),
+      loginpage: (context) => const login(),
       choicePage: (context) => const choice(),
       choice2Page: (context) => const choice2(),
+      selectPage: (context) => const select()
     };
   }
 }
