@@ -12,7 +12,7 @@ import '../pages/FirstPage.dart';
 import '../pages/select.dart';
 import '../pages/choicePg2.dart';
 import '../pages/choicePg.dart';
-import '../pages/homeEP/formEP.dart';
+import '../pages/homeEP/ideapage.dart';
 
 class MyRoutes {
   static String initialPage = "/";
@@ -23,12 +23,14 @@ class MyRoutes {
   static String choicePage = "/choose";
   static String choice2Page = "/choose2";
   static String selectPage = "/signup/select";
+  static String ideapage = "/homeINV/ideas";
 
   Map<String, Widget Function(BuildContext)> getRoutes(BuildContext context) {
     return {
-
-      initialPage: (context) => const FirstPage(),
-      homeEPPage: (context) => formEP(),
+      // initialPage: (context) => const FirstPage(),
+      initialPage: (context) => ProductDetailsPage(),
+      ideapage: (context) => ProductDetailsPage(),
+      homeEPPage: (context) => const homeEP(),
       homeINVPage: (context) => const homeINV(),
       loginpage: (context) => const login(),
       choicePage: (context) => const choice(),

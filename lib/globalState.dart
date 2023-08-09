@@ -6,6 +6,11 @@ class BaseState extends ChangeNotifier {
 
   AppUser get user => _user;
 
+  final EntrepreneurIdea _idea =
+      EntrepreneurIdea(entrepreneurId: "y9TGHbMSkeRl1WZeep1rlaHDxbC3");
+
+  EntrepreneurIdea get idea => _idea;
+
   void notify() {
     notifyListeners();
   }
