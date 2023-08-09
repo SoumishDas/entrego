@@ -12,21 +12,12 @@ class AuthState {
   //contains methods for user sign in and authentication
   final FirebaseAuth auth = FirebaseAuth.instance; //initialize auth state
 
-  void init(BuildContext context) {
-    FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      if (user != null) {
-        print(user.uid);
-        Navigator.pushNamed(context, "/homeEP");
-      }
-    });
-  }
-
-  //handle google sign in
+  // Handle google sign in
   Future<void> signIn(BuildContext context) async {
     final GoogleSignIn gSignIn = GoogleSignIn(); //google sign in request
     final GoogleSignInAccount? gSignInAcc = await gSignIn.signIn();
 
-    BaseState baseState = Provider.of<BaseState>(context);
+    BaseState baseState = Provider.of<BaseState>(context, listen: false);
 
     if (gSignInAcc != null) {
       final GoogleSignInAuthentication gSignInAuth =
@@ -49,8 +40,11 @@ class AuthState {
             'photoUrl': user.photoURL,
             'id': user.uid,
           });
+
+          baseState.user.email = user.email!;
           baseState.user.getUser(user.uid).then((value) {
             if (value == true) {
+              print("##############");
               print(user.displayName);
               if (baseState.user.isInvestor) {
                 Navigator.pushNamed(context, MyRoutes.homeINVPage);
@@ -58,6 +52,7 @@ class AuthState {
                 Navigator.pushNamed(context, MyRoutes.homeEPPage);
               }
             } else {
+              print("!!!!!!!!!!!!!!!!!!!!!");
               Navigator.pushNamed(context, MyRoutes.choicePage);
             }
           });
