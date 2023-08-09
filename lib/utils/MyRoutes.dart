@@ -10,6 +10,7 @@ import '../pages/signup.dart';
 import '../pages/FirstPage.dart';
 import '../pages/select.dart';
 import '../pages/choicePg2.dart';
+import '../pages/choicePg.dart';
 
 class MyRoutes {
   static String initialPage = "/";
@@ -27,7 +28,7 @@ class MyRoutes {
       initialPage: (context) => const homeINV(),
       homeEPPage: (context) => const homeEP(),
       homeINVPage: (context) => const homeINV(),
-      loginpage: (context) => const login(),
+      loginpage: (context) => const LoginPage(),
       choicePage: (context) => const choice(),
       choice2Page: (context) => const choice2(),
     };
