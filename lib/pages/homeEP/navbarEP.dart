@@ -26,25 +26,26 @@ class _NavEPState extends State<NavEP> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      backgroundColor: Color.fromRGBO(43, 98, 102, 1),
       currentIndex: currentIndex,
-      iconSize: 35,
+      iconSize: 25,
       onTap: (index) => setState(() {
         changePage(context, index);
       }),
       items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
-          backgroundColor: Colors.amber,
+          backgroundColor: Colors.white,
           label: "Home",
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.settings),
-          backgroundColor: Colors.amber,
+          backgroundColor: Colors.white,
           label: "Login",
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.person),
-          backgroundColor: Colors.amber,
+          backgroundColor: Colors.white,
           label: "Profile",
         ),
       ],
