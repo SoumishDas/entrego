@@ -30,69 +30,73 @@ class _FirstPageState extends State<FirstPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(14, 5, 15, 1),
+      // backgroundColor: const Color.fromRGBO(14, 5, 15, 1),
       body: Container(
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/images/BG.jpg"),
-                fit: BoxFit.fitHeight)),
         child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.end,
+            // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text(
-                "Welcome",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 70,
-                    fontWeight: FontWeight.w900),
+              Container(
+                decoration: const BoxDecoration(
+                  // color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  // boxShadow: [
+                  //   BoxShadow(
+                  //     color: Colors.black26,
+                  //     blurRadius: 10.0,
+                  //     spreadRadius: 2,
+                  //     offset: Offset(
+                  //       5,
+                  //       5,
+                  //     ),
+                  //   )
+                  // ],
+                ),
+                child: const Text(
+                  "Entrego",
+                  style: TextStyle(
+                      color: Color.fromRGBO(43, 98, 102, 1),
+                      fontSize: 70,
+                      fontWeight: FontWeight.w900),
+                ),
               ),
               const SizedBox(
                 height: 250,
               ),
-              InkWell(
-                onTap: () {
-                  moveTo2ndPg(context);
-                },
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 1000),
-                  width: 200,
-                  height: 50,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                      color: black, borderRadius: BorderRadius.circular(10)),
-                  child: const Text(
-                    "Login",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 25,
-                        fontWeight: FontWeight.w900),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      moveTo2ndPg(context);
+                    },
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 1000),
+                      alignment: Alignment.bottomCenter,
+                      padding: const EdgeInsets.fromLTRB(0, 0, 5, 9),
+                      decoration: BoxDecoration(
+                          // boxShadow: [20, 21, 22, 22],
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: const Row(
+                        children: [
+                          Text(
+                            "Continue",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 25,
+                                fontWeight: FontWeight.w900),
+                          ),
+                          Icon(
+                            Icons.forward_rounded,
+                            color: Colors.black,
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              InkWell(
-                onTap: () {
-                  moveTo2ndPg(context);
-                },
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 1000),
-                  width: 200,
-                  height: 50,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                      color: black, borderRadius: BorderRadius.circular(10)),
-                  child: const Text(
-                    "Sign Up",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 25,
-                        fontWeight: FontWeight.w900),
-                  ),
-                ),
+                ],
               ),
             ],
           ),
