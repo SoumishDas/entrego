@@ -32,34 +32,52 @@ class Investor {
 
 class EntrepreneurIdea {
   String entrepreneurId; // ID of the entrepreneur
-  String ideaDescription;
+  String name;
+  String sIdeaDescription;
+  String bIdeaDescription;
   double fundingNeeded;
   double equityOffered; // Percentage of equity offered to investors
   double capitalRaised;
+  String contactInfo;
+  List<String> tags;
+  List<String> techUsed;
   List<Investor> investors;
 
   EntrepreneurIdea({
-    required this.entrepreneurId,
-    required this.ideaDescription,
-    required this.fundingNeeded,
-    required this.equityOffered,
+    this.tags = const [],
+    this.techUsed = const [],
+    this.name = '',
+    this.entrepreneurId = "",
+    this.bIdeaDescription = '',
+    this.sIdeaDescription = '',
+    this.contactInfo = '',
+    this.fundingNeeded = 0,
+    this.equityOffered = 0,
     this.capitalRaised = 0,
     this.investors = const [],
   });
 
-  Future<void> saveIdea() async {
-    await FirebaseFirestore.instance
+  Future<bool> saveIdea() async {
+    return await FirebaseFirestore.instance
         .collection('app_users')
         .doc(entrepreneurId)
         .collection('ideas')
         .add({
-          'ideaDescription': ideaDescription,
-          'fundingNeeded': fundingNeeded,
-          'equityOffered': equityOffered,
-          'capitalRaised': capitalRaised,
-        })
-        .then((value) => print("Idea Saved"))
-        .catchError((error) => print("Failed to save idea: $error"));
+      'name': name,
+      'sIdeaDescription': sIdeaDescription,
+      'bIdeaDescription': bIdeaDescription,
+      'fundingNeeded': fundingNeeded,
+      'equityOffered': equityOffered,
+      'capitalRaised': capitalRaised,
+      "tags": tags,
+      'techUsed': techUsed,
+    }).then((value) {
+      print("Idea Saved");
+      return true;
+    }).catchError((error) {
+      print("Failed to save idea: $error");
+      return false;
+    });
   }
 
   Future<void> addInvestment(Investor investor) async {

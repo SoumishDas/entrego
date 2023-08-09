@@ -1,27 +1,269 @@
+import 'package:entrego/globalState.dart';
+import 'package:entrego/utils/MyRoutes.dart';
+import 'package:entrego/utils/f_store.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+
+import 'package:provider/provider.dart';
 
 class formEP extends StatefulWidget {
-  const formEP({super.key});
-
   @override
-  State<formEP> createState() => _formEPState();
+  _formEPState createState() => _formEPState();
 }
 
 class _formEPState extends State<formEP> {
-  String productName = '';
-  String productDesc = '';
-  XFile? selectedImg;
-  Future<void> selectImg() async {
+  String _productName = '';
+  String _shortDescription = '';
+  String _longDescription = '';
+  double _capitalRequired = 0.0;
+  double _equity = 0.0;
+  String _contactInfo = '';
+  List<String> selectedTags = [];
+  List<String> selectedTech = [];
+  String searchQuery = '';
+  String searchQuery_tech = '';
+  List<String> tagList = ['alpha', 'beta', 'gamma', 'delta'];
+  List<String> techList = ['python', 'ruby', 'R', 'rust'];
+
+  EntrepreneurIdea entrepreneurIdea = EntrepreneurIdea();
+
+  File? _selectedImageFile;
+
+  Future<void> _selectImage() async {
     final picker = ImagePicker();
     final pickedImage = await picker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      selectedImg = pickedImage;
-    });
+    if (pickedImage != null) {
+      setState(() {
+        _selectedImageFile = File(pickedImage.path);
+      });
+    }
+  }
+
+  List<String> get filteredTags {
+    return tagList
+        .where((tag) => tag.toLowerCase().contains(searchQuery.toLowerCase()))
+        .toList();
+  }
+
+  List<String> get filteredTech {
+    return techList
+        .where((tech) =>
+            tech.toLowerCase().contains(searchQuery_tech.toLowerCase()))
+        .toList();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    BaseState baseState = Provider.of<BaseState>(context, listen: false);
+
+    return Scaffold(
+        body: SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 40, 16, 0),
+        child:
+            Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          const Text(
+            'Publish Your Idea',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 20),
+          TextField(
+            decoration: InputDecoration(labelText: 'Product Name'),
+            onChanged: (value) {
+              setState(() {
+                _productName = value;
+              });
+            },
+          ),
+          SizedBox(height: 20),
+          TextField(
+            decoration: InputDecoration(labelText: 'Short Description'),
+            onChanged: (value) {
+              setState(() {
+                _shortDescription = value;
+              });
+            },
+          ),
+          SizedBox(height: 20),
+          TextField(
+            decoration: InputDecoration(labelText: 'Long Description'),
+            onChanged: (value) {
+              setState(() {
+                _longDescription = value;
+              });
+            },
+          ),
+          SizedBox(height: 20),
+          TextField(
+            decoration: InputDecoration(labelText: 'Capital Required'),
+            keyboardType: TextInputType.number,
+            onChanged: (value) {
+              setState(() {
+                _capitalRequired = double.tryParse(value) ?? 0.0;
+              });
+            },
+          ),
+          SizedBox(height: 20),
+          TextField(
+            decoration: InputDecoration(labelText: 'Equity'),
+            keyboardType: TextInputType.number,
+            onChanged: (value) {
+              setState(() {
+                _equity = double.tryParse(value) ?? 0.0;
+              });
+            },
+          ),
+          SizedBox(height: 20),
+          TextField(
+            decoration: InputDecoration(labelText: 'Contact Information'),
+            onChanged: (value) {
+              setState(() {
+                _contactInfo = value;
+              });
+            },
+          ),
+          SizedBox(height: 20),
+          _selectedImageFile == null
+              ? Text('No Image Selected')
+              : Image.file(
+                  _selectedImageFile!,
+                  height: 150,
+                  width: 150,
+                  fit: BoxFit.cover,
+                ),
+          SizedBox(height: 10),
+          ElevatedButton(
+            onPressed: _selectImage,
+            child: Text('Select Image'),
+          ),
+          SizedBox(height: 10),
+          Text('Tags:', style: TextStyle(fontSize: 16)),
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: TextField(
+                  onChanged: (query) {
+                    setState(() {
+                      searchQuery = query;
+                    });
+                  },
+                  decoration: const InputDecoration(
+                    labelText: 'Search for tags',
+                    prefixIcon: Icon(Icons.search),
+                  ),
+                ),
+              ),
+              Container(
+                height: 150,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: filteredTags.map((tag) {
+                      final isSelected = selectedTags.contains(tag);
+
+                      return ListTile(
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 4.0, horizontal: 8.0),
+                        title: Text(tag),
+                        trailing: Icon(isSelected
+                            ? Icons.check_box
+                            : Icons.check_box_outline_blank),
+                        onTap: () {
+                          setState(() {
+                            if (isSelected) {
+                              selectedTags.remove(tag);
+                            } else {
+                              selectedTags.add(tag);
+                            }
+                          });
+                        },
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ),
+              SizedBox(height: 10),
+              Text('Tech Tags:', style: TextStyle(fontSize: 16)),
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: TextField(
+                      onChanged: (query) {
+                        setState(() {
+                          searchQuery = query;
+                        });
+                      },
+                      decoration: const InputDecoration(
+                        labelText: 'Search for tech tags',
+                        prefixIcon: Icon(Icons.search),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    height: 150,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: filteredTech.map((tech) {
+                          final isSelected = selectedTech.contains(tech);
+
+                          return ListTile(
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 4.0, horizontal: 8.0),
+                            title: Text(tech),
+                            trailing: Icon(isSelected
+                                ? Icons.check_box
+                                : Icons.check_box_outline_blank),
+                            onTap: () {
+                              setState(() {
+                                if (isSelected) {
+                                  selectedTech.remove(tech);
+                                } else {
+                                  selectedTech.add(tech);
+                                }
+                              });
+                            },
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: () {
+                      // Add logic to save the product details
+                      entrepreneurIdea.entrepreneurId = baseState.user.uid;
+                      entrepreneurIdea.bIdeaDescription = _longDescription;
+                      entrepreneurIdea.sIdeaDescription = _shortDescription;
+                      entrepreneurIdea.fundingNeeded = _capitalRequired;
+                      entrepreneurIdea.equityOffered = _equity;
+                      entrepreneurIdea.name = _productName;
+                      entrepreneurIdea.contactInfo = _contactInfo;
+                      entrepreneurIdea.tags = selectedTags;
+                      entrepreneurIdea.techUsed = selectedTech;
+
+                      entrepreneurIdea.saveIdea().then(
+                        (value) {
+                          if (value == true) {
+                            Navigator.pushNamed(context, MyRoutes.homeEPPage);
+                          } else {
+                            print("Idea Could Not Be Saved");
+                          }
+                        },
+                      );
+                    },
+                    child: Text('Save Product'),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ]),
+      ),
+    ));
   }
 }
