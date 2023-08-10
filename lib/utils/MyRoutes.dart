@@ -29,12 +29,12 @@ class MyRoutes {
   static String ideapage = "/homeINV/ideas";
   static String ideapage_EP = "/homeEP/ideas";
   static String formForEP = "/signup/select/choose2/formForEP";
-  static String  InvestPage = '/homeINV/invest';
+  static String InvestPage = '/homeINV/invest';
 
   Map<String, Widget Function(BuildContext)> getRoutes(BuildContext context) {
     return {
       // initialPage: (context) => const FirstPage(),
-      initialPage: (context) => FirstPage(),
+      initialPage: (context) => choice(),
       ideapage: (context) => ProductDetailsPage(),
       ideapage_EP: (context) => ProductDetailsPage(),
       homeEPPage: (context) => const homeEP(),
@@ -43,10 +43,8 @@ class MyRoutes {
       choicePage: (context) => const choice(),
       choice2Page: (context) => const choice2(),
       selectPage: (context) => const select(),
-      formForEP: (context) =>  formEP(),
+      formForEP: (context) => formEP(),
       InvestPage: (context) => const investPg(),
-      
-
     };
   }
 }

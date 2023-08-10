@@ -49,7 +49,7 @@ class _investPgState extends State<investPg> {
               ),
               SizedBox(height: 10),
               Text(
-                '% of Portfolio: ${(_enteredValue/baseState.user.capital)*100}',
+                '% of Portfolio: ${(_enteredValue / baseState.user.capital) * 100}',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -57,7 +57,7 @@ class _investPgState extends State<investPg> {
               ),
               SizedBox(height: 20),
               Text(
-                'Equity you get in return: ${(_enteredValue/baseState.idea.fundingNeeded) * baseState.idea.equityOffered}',
+                'Equity you get in return: ${(_enteredValue / baseState.idea.fundingNeeded) * baseState.idea.equityOffered}',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -67,22 +67,20 @@ class _investPgState extends State<investPg> {
               ElevatedButton(
                 onPressed: () {
                   // Implement Invest button functionality
-                  Investor investment = Investor(investorId: baseState.user.uid);
+                  Investor investment =
+                      Investor(investorId: baseState.user.uid);
                   Portfolio portfolio = Portfolio(uid: baseState.user.uid);
 
                   investment.addInvestmentIfNotExists().then((value) {
                     investment.addInvestmentAndUpdateEquity( _enteredValue, (_enteredValue/baseState.idea.fundingNeeded) * baseState.idea.equityOffered).then((value) {
                       baseState.idea.addInvestment(investment).then((value) {
-                        portfolio.addInvestment(investment).then((value) {
-                          Navigator.pushNamed(context, MyRoutes.homeINVPage);
-                        },);
+                        portfolio.addInvestment(investment);
                       });
                     },);
                   });
                 },
                 child: Text('Invest'),
               ),
-              
               SizedBox(height: 20),
               Text(
                 'Tip: We recommend investing small amounts into multiple businesses',
