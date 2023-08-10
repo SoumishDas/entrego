@@ -26,6 +26,7 @@ class _NavINVState extends State<NavINV> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      fixedColor: Colors.white,
       backgroundColor: const Color.fromRGBO(43, 98, 102, 1),
       currentIndex: currentIndex,
       iconSize: 25,
@@ -53,7 +54,7 @@ class _NavINVState extends State<NavINV> {
             color: Colors.white,
           ),
           backgroundColor: Colors.white,
-          label: "Profile",
+          label: "Settings",
         )
       ],
     );

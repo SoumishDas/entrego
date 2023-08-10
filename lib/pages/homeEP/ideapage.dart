@@ -1,9 +1,13 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:entrego/globalState.dart';
+import 'package:entrego/pages/homeEP/navbarEP.dart';
 import 'package:entrego/utils/f_store.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../homeINV/navbarINV.dart';
 
 class ProductDetailsPage extends StatefulWidget {
   @override
@@ -34,8 +38,20 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.9,
+              margin: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: Offset(0, 3))
+                  ]),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -123,6 +139,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
           ],
         ),
       ),
+      bottomNavigationBar:
+          baseState.user.isInvestor ? const NavINV() : const NavEP(),
     );
   }
 }
