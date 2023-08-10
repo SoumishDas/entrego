@@ -39,12 +39,14 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
+          width: 1000,
+          height: 1000,
           decoration: BoxDecoration(
             image: DecorationImage(
               image: NetworkImage(
                 "https://images.unsplash.com/photo-1537420327992-d6e192287183?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGJhY2tncm91bmQlMjB0ZXh0dXJlfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60)",
               ),
-              fit: BoxFit.cover,
+              fit: BoxFit.fitHeight,
             ),
           ),
           child: Column(
@@ -56,7 +58,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                 padding: EdgeInsets.all(16),
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage(""), // Replace with your image
+                    image:
+                        NetworkImage(idea.imgLink), // Replace with your image
                     fit: BoxFit.cover,
                   ),
                   color: Colors.white,

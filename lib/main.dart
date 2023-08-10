@@ -10,8 +10,6 @@ import 'package:provider/provider.dart';
 import 'utils/MyRoutes.dart';
 import 'globalState.dart';
 
-const Color darkBlue = Color.fromARGB(252, 18, 32, 47);
-
 const messageLimit = 50;
 
 void main() async {

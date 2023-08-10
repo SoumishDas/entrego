@@ -40,122 +40,166 @@ class _choiceState extends State<choice> {
 
     return Scaffold(
       backgroundColor: Color.fromRGBO(255, 242, 242, 1),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'First Name'),
-                onChanged: (value) {
-                  setState(() {
-                    firstName = value;
-                  });
-                },
-              ),
-              SizedBox(height: 10),
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'Last Name'),
-                onChanged: (value) {
-                  setState(() {
-                    lastName = value;
-                  });
-                },
-              ),
-              SizedBox(height: 10),
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'Capital'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Capital cannot be empty";
-                  } else if (!isInteger(value)) {
-                    return "Capital has to be integer";
-                  } else {
-                    return null;
-                  }
-                },
-                onChanged: (value) {
-                  setState(() {
-                    capital = int.parse(value);
-                  });
-                },
-              ),
-              SizedBox(height: 10),
-              Text('Tags:', style: TextStyle(fontSize: 16)),
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: TextField(
-                      onChanged: (query) {
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/images/BG.jpg"), fit: BoxFit.cover)),
+        alignment: Alignment.center,
+        child: Container(
+          height: MediaQuery.of(context).size.height * 0.9,
+          width: MediaQuery.of(context).size.width * 0.9,
+          margin: EdgeInsets.all(16),
+          padding: EdgeInsets.all(16),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    offset: Offset(0, 3))
+              ]),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: SingleChildScrollView(
+              child: Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextFormField(
+                      decoration: InputDecoration(
+                        labelText: 'First Name',
+                        hintText: 'Enter your first name...',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                      ),
+                      onChanged: (value) {
                         setState(() {
-                          searchQuery = query;
+                          firstName = value;
                         });
                       },
-                      decoration: const InputDecoration(
-                        labelText: 'Search for tags',
-                        prefixIcon: Icon(Icons.search),
-                      ),
                     ),
-                  ),
-                  Container(
-                    height: 150, // Adjust the height as needed
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: filteredTags.map((tag) {
-                          final isSelected = selectedTags.contains(tag);
-
-                          return ListTile(
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 4.0, horizontal: 8.0),
-                            title: Text(tag),
-                            trailing: Icon(isSelected
-                                ? Icons.check_box
-                                : Icons.check_box_outline_blank),
-                            onTap: () {
+                    SizedBox(height: 10),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        labelText: 'Last Name',
+                        hintText: 'Enter your last name...',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          lastName = value;
+                        });
+                      },
+                    ),
+                    SizedBox(height: 10),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        labelText: 'Capital',
+                        hintText: 'Enter the capital required...',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Capital cannot be empty";
+                        } else if (!isInteger(value)) {
+                          return "Capital has to be integer";
+                        } else {
+                          return null;
+                        }
+                      },
+                      onChanged: (value) {
+                        setState(() {
+                          capital = int.parse(value);
+                        });
+                      },
+                    ),
+                    SizedBox(height: 10),
+                    Text('Tags:', style: TextStyle(fontSize: 16)),
+                    Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: TextField(
+                            onChanged: (query) {
                               setState(() {
-                                if (isSelected) {
-                                  selectedTags.remove(tag);
+                                searchQuery = query;
+                              });
+                            },
+                            decoration: const InputDecoration(
+                              labelText: 'Search for tags',
+                              prefixIcon: Icon(Icons.search),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: 150, // Adjust the height as needed
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: filteredTags.map((tag) {
+                                final isSelected = selectedTags.contains(tag);
+
+                                return ListTile(
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 4.0, horizontal: 8.0),
+                                  title: Text(tag),
+                                  trailing: Icon(isSelected
+                                      ? Icons.check_box
+                                      : Icons.check_box_outline_blank),
+                                  onTap: () {
+                                    setState(() {
+                                      if (isSelected) {
+                                        selectedTags.remove(tag);
+                                      } else {
+                                        selectedTags.add(tag);
+                                      }
+                                    });
+                                  },
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 10), // Decreased spacing here
+                        Center(
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: Color.fromRGBO(43, 98, 102, 1),
+                              onPrimary: Color.fromRGBO(255, 255, 255, 1),
+                            ),
+                            onPressed: () {
+                              // Implement registration logic
+                              baseState.user.capital = capital;
+                              baseState.user.firstName = firstName;
+                              baseState.user.lastName = lastName;
+                              baseState.user.prefTags = selectedTags;
+                              baseState.user.isInvestor = true;
+
+                              baseState.user.addUser().then((value) {
+                                if (value == true) {
+                                  Navigator.pushNamed(
+                                      context, MyRoutes.homeINVPage);
                                 } else {
-                                  selectedTags.add(tag);
+                                  print("ERROR ADDING USER");
                                 }
                               });
                             },
-                          );
-                        }).toList(),
-                      ),
+                            child: Text('Register'),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                  SizedBox(height: 10), // Decreased spacing here
-                  Center(
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Color.fromRGBO(43, 98, 102, 1),
-                        onPrimary: Color.fromRGBO(255, 255, 255, 1),
-                      ),
-                      onPressed: () {
-                        // Implement registration logic
-                        baseState.user.capital = capital;
-                        baseState.user.firstName = firstName;
-                        baseState.user.lastName = lastName;
-                        baseState.user.prefTags = selectedTags;
-                        baseState.user.isInvestor = true;
-
-                        baseState.user.addUser().then((value) {
-                          if (value == true) {
-                            Navigator.pushNamed(context, MyRoutes.homeINVPage);
-                          } else {
-                            print("ERROR ADDING USER");
-                          }
-                        });
-                      },
-                      child: Text('Register'),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ],
+            ),
           ),
         ),
       ),

@@ -15,7 +15,7 @@ class _selectState extends State<select> {
       body: Center(
         child: Align(
           child: Container(
-            height: 1000,
+            height: MediaQuery.of(context).size.height,
             decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage("assets/images/BG.jpg"),
@@ -54,6 +54,7 @@ class _selectState extends State<select> {
                     },
                     child: const Text("Investor"),
                     style: ElevatedButton.styleFrom(
+                      fixedSize: Size(250, 50),
                       backgroundColor: Color.fromRGBO(
                           43, 98, 102, 1), // Set the background color
                       foregroundColor: Colors.white, // Set the text color
@@ -65,7 +66,6 @@ class _selectState extends State<select> {
                           EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20)),
-                      minimumSize: Size(150, 50),
                     ),
                   ),
                   SizedBox(
@@ -77,6 +77,7 @@ class _selectState extends State<select> {
                     },
                     child: const Text("Entrepreneur"),
                     style: ElevatedButton.styleFrom(
+                      fixedSize: Size(250, 50),
                       backgroundColor: Color.fromRGBO(
                           43, 98, 102, 1), // Set the background color
                       foregroundColor: Colors.white, // Set the text color
