@@ -32,6 +32,15 @@ class _formEPState extends State<formEP> {
 
   File? _selectedImageFile;
 
+  void showErrorMessage(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        duration: const Duration(seconds: 3),
+      ),
+    );
+  }
+
   Future<void> _selectImage() async {
     final picker = ImagePicker();
     final pickedImage = await picker.pickImage(source: ImageSource.gallery);
@@ -326,13 +335,10 @@ class _formEPState extends State<formEP> {
                                       selectedTech.isEmpty ||
                                       _selectedImageFile == null) {
                                     // Display a snackbar or an alert to notify the user about missing fields
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content:
-                                            Text('Please fill in all fields.'),
-                                      ),
-                                    );
+                                    showErrorMessage("Please Fill All Fields");
                                     return;
+                                  }else if (_equity >= 100){
+                                    showErrorMessage("Please give Valid Equity Percentage");
                                   }
 
                                   // Add logic to save the product details
@@ -350,6 +356,8 @@ class _formEPState extends State<formEP> {
                                   entrepreneurIdea.tags = selectedTags;
                                   entrepreneurIdea.techUsed = selectedTech;
 
+                                  
+
                                   _uploadImage().then((value) {
                                     entrepreneurIdea.imgLink = value;
                                     entrepreneurIdea.saveIdea().then(
@@ -358,7 +366,7 @@ class _formEPState extends State<formEP> {
                                           Navigator.pushNamed(
                                               context, MyRoutes.homeEPPage);
                                         } else {
-                                          print("Idea Could Not Be Saved");
+                                          showErrorMessage("Idea Could Not Be Saved");
                                         }
                                       },
                                     );

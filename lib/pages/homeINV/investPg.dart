@@ -12,7 +12,16 @@ class investPg extends StatefulWidget {
 }
 
 class _investPgState extends State<investPg> {
-  double _enteredValue = 0.0;
+  double _enteredValue = 0;
+
+  void showErrorMessage(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        duration: const Duration(seconds: 3),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +47,14 @@ class _investPgState extends State<investPg> {
               TextField(
                 keyboardType: TextInputType.numberWithOptions(decimal: true),
                 onChanged: (value) {
+                  double val  = double.tryParse(value) ?? 0;
+                  if(val >= baseState.user.capital){
+                    showErrorMessage("Entered amount is greater than available Capital");
+                  } else if (val > (baseState.idea.fundingNeeded - baseState.idea.capitalRaised)){
+                    showErrorMessage("More funding given than what is needed");
+                  }
                   setState(() {
-                    _enteredValue = double.tryParse(value) ?? 0.0;
+                   _enteredValue = val;
                   });
                 },
                 decoration: InputDecoration(
@@ -82,7 +97,7 @@ class _investPgState extends State<investPg> {
                 child: Text('Invest'),
               ),
               SizedBox(height: 20),
-              Text(
+              const Text(
                 'Tip: We recommend investing small amounts into multiple businesses',
                 style: TextStyle(
                   fontSize: 16,

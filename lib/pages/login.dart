@@ -22,14 +22,28 @@ class _loginState extends State<login> {
   Color black = const Color.fromRGBO(14, 5, 15, 1);
   Color blueBlack = const Color.fromRGBO(23, 11, 59, 1);
 
+  String errorMessage = ""; // To hold error messages
+
   void hideText() {
-    if (htext == true) {
-      htext = false;
-    } else if (htext == false) {
-      htext = true;
-    }
+    setState(() {
+      htext = !htext;
+    });
   }
 
+  void showErrorMessage(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        duration: const Duration(seconds: 3),
+      ),
+    );
+  }
+
+  bool isValidEmail(String email) {
+    // Basic email format validation
+    final emailRegExp = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+    return emailRegExp.hasMatch(email);
+  }
   moveToHome(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
       setState(() {
@@ -37,7 +51,7 @@ class _loginState extends State<login> {
       });
 
       await Future.delayed(const Duration(milliseconds: 2000));
-      // await Navigator.pushNamed(context, MyRoutes.);
+
       setState(() {
         onChanged = false;
       });
@@ -46,6 +60,7 @@ class _loginState extends State<login> {
 
   final AuthState gAuth = AuthState();
   final mailAuth mAuth = mailAuth();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,26 +111,27 @@ class _loginState extends State<login> {
                                 child: Column(
                                   children: [
                                     TextFormField(
-                                        decoration: const InputDecoration(
-                                          label: Text("Email"),
-                                          hintText: "Enter Email ID",
-                                        ),
-                                        onChanged: (value) {
-                                          setState(() {
-                                            name = value;
-                                          });
-                                        },
-                                        validator: (value) {
-                                          if (value == null || value.isEmpty) {
-                                            return "Email cannot be empty";
-                                          }
-                                          return null;
-                                        }),
+                                      decoration: const InputDecoration(
+                                        labelText: "Email",
+                                        hintText: "Enter Email ID",
+                                      ),
+                                      onChanged: (value) {
+                                        setState(() {
+                                          name = value;
+                                        });
+                                      },
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return "Email cannot be empty";
+                                        }
+                                        return null;
+                                      },
+                                    ),
                                     const SizedBox(height: 5),
                                     TextFormField(
                                       obscureText: htext,
                                       decoration: const InputDecoration(
-                                        label: Text("Password"),
+                                        labelText: "Password",
                                         hintText: "Enter Password",
                                       ),
                                       onChanged: (value) {
@@ -141,25 +157,37 @@ class _loginState extends State<login> {
                                                 MainAxisAlignment.end,
                                             children: [
                                               FloatingActionButton.small(
-                                                  backgroundColor: green,
-                                                  child: htext
-                                                      ? const Icon(
-                                                          Icons.visibility)
-                                                      : const Icon(
-                                                          Icons.visibility_off),
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      hideText();
-                                                    });
-                                                  }),
+                                                backgroundColor: green,
+                                                child: htext
+                                                    ? const Icon(
+                                                        Icons.visibility)
+                                                    : const Icon(
+                                                        Icons.visibility_off),
+                                                onPressed: hideText,
+                                              ),
                                             ],
                                           ),
                                     const SizedBox(
                                       height: 20,
                                     ),
                                     InkWell(
-                                      onTap: () {
-                                        mAuth.register(context, name, pw);
+                                      onTap: () async {
+
+                                        if(!isValidEmail(name)){
+                                          showErrorMessage("Email is not valid!");
+                                          return;
+                                        }
+                                        String success =
+                                            await mAuth.register(context, name, pw);
+
+                                        if (success == "") {
+                                          // Registration success
+                                          // Move to the next screen or perform necessary actions
+                                        } else {
+                                          // Registration failed
+                                          showErrorMessage(
+                                              "Failed. $success");
+                                        }
                                       },
                                       child: AnimatedContainer(
                                         duration:
@@ -197,20 +225,29 @@ class _loginState extends State<login> {
                                       height: 5,
                                     ),
                                     ElevatedButton.icon(
-                                        onPressed: () => gAuth.signIn(context),
-                                        style: ElevatedButton.styleFrom(
-                                            backgroundColor: Colors.white),
-                                        icon: const Icon(
-                                          Icons.g_mobiledata,
-                                          color: Color.fromRGBO(43, 98, 102, 1),
-                                        ),
-                                        label: const Text(
-                                          "Log In with Google",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w900,
-                                              color: Color.fromRGBO(
-                                                  43, 98, 102, 1)),
-                                        )),
+                                      onPressed: () async {
+                                        bool success = await gAuth.signIn(context);
+
+                                        if (!success) {
+                                          // Sign-in failed
+                                          showErrorMessage(
+                                              "Google Sign-In failed. Please try again.");
+                                        }
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.white),
+                                      icon: const Icon(
+                                        Icons.g_mobiledata,
+                                        color: Color.fromRGBO(43, 98, 102, 1),
+                                      ),
+                                      label: const Text(
+                                        "Log In with Google",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w900,
+                                            color: Color.fromRGBO(
+                                                43, 98, 102, 1)),
+                                      ),
+                                    ),
                                     const SizedBox(height: 30),
                                   ],
                                 ),

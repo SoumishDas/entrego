@@ -13,7 +13,7 @@ class AuthState {
   final FirebaseAuth auth = FirebaseAuth.instance; //initialize auth state
 
   // Handle google sign in
-  Future<void> signIn(BuildContext context) async {
+  Future<bool> signIn(BuildContext context) async {
     final GoogleSignIn gSignIn = GoogleSignIn(); //google sign in request
     final GoogleSignInAccount? gSignInAcc = await gSignIn.signIn();
 
@@ -55,9 +55,14 @@ class AuthState {
               print("!!!!!!!!!!!!!!!!!!!!!");
               Navigator.pushNamed(context, MyRoutes.choicePage);
             }
+          return true;
           });
         }
+      }else{
+        return false;
       }
     }
+    return false;
+    
   }
 }

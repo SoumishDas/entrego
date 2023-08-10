@@ -15,6 +15,15 @@ class _choice2State extends State<choice2> {
   String firstName = "";
   String lastName = "";
 
+   void showErrorMessage(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        duration: const Duration(seconds: 3),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     BaseState baseState = Provider.of<BaseState>(context, listen: false);
@@ -88,6 +97,9 @@ class _choice2State extends State<choice2> {
                           foregroundColor: Color.fromRGBO(255, 255, 255, 1),
                         ),
                         onPressed: () {
+                          if(firstName.isEmpty || lastName.isEmpty){
+                            showErrorMessage("Please Fill All Fields");
+                          }
                           baseState.user.firstName = firstName;
                           baseState.user.lastName = lastName;
 
@@ -99,7 +111,7 @@ class _choice2State extends State<choice2> {
                                 Navigator.pushNamed(
                                     context, MyRoutes.formForEP);
                               } else {
-                                print("ERROR ADDING USER");
+                                showErrorMessage("Could Not Update User Details");
                               }
                             },
                           );

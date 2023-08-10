@@ -26,6 +26,14 @@ class _choiceState extends State<choice> {
     final RegExp regex = RegExp(r'^[0-9]+$');
     return regex.hasMatch(value);
   }
+  void showErrorMessage(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        duration: const Duration(seconds: 3),
+      ),
+    );
+  }
 
   String firstName = "";
   String lastName = "";
@@ -175,6 +183,14 @@ class _choiceState extends State<choice> {
                               onPrimary: Color.fromRGBO(255, 255, 255, 1),
                             ),
                             onPressed: () {
+                              if (firstName.isEmpty ||
+                                  lastName.isEmpty ||
+                                  capital == 0 ||
+                                  selectedTags.isEmpty) {
+                                showErrorMessage("Please fill in all fields.");
+                                return;
+                              }
+
                               // Implement registration logic
                               baseState.user.capital = capital;
                               baseState.user.firstName = firstName;
@@ -187,7 +203,7 @@ class _choiceState extends State<choice> {
                                   Navigator.pushNamed(
                                       context, MyRoutes.homeINVPage);
                                 } else {
-                                  print("ERROR ADDING USER");
+                                  showErrorMessage("Could Not Add User Details");
                                 }
                               });
                             },
