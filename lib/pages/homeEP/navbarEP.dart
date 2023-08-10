@@ -14,11 +14,29 @@ class _NavEPState extends State<NavEP> {
     if (pageNum == 0) {
       Navigator.pushNamed(context, MyRoutes.homeEPPage);
     }
-    if (pageNum == 2) {
+    if (pageNum == 1) {
       // Navigator.pushNamed(context, MyRoutes.loginpage);
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Under Development"),
+            content: Text("The 'Settings' page is not developed yet."),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text("OK"),
+              ),
+            ],
+          );
+        },
+      );
+       
     }
-    if (pageNum == 3) {
-      // Navigator.pushNamed(context, MyRoutes.profilepage);
+    if (pageNum == 2) {
+      Navigator.pushNamed(context, MyRoutes.loginpage);
     }
     currentIndex = pageNum;
   }
@@ -53,7 +71,7 @@ class _NavEPState extends State<NavEP> {
             Icons.person,
             color: Colors.white,
           ),
-          label: "Profile",
+          label: "Logout",
           backgroundColor: Colors.white,
         ),
       ],

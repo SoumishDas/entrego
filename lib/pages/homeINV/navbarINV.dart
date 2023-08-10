@@ -17,8 +17,25 @@ class _NavINVState extends State<NavINV> {
     if (pageNum == 2) {
       Navigator.pushNamed(context, MyRoutes.loginpage);
     }
-    if (pageNum == 3) {
-      // Navigator.pushNamed(context, MyRoutes.profilepage);
+    if (pageNum == 1) {
+      // Show a dialog or Snackbar to indicate that the page is not developed yet
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Under Development"),
+            content: Text("The 'Settings' page is not developed yet."),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text("OK"),
+              ),
+            ],
+          );
+        },
+      );
     }
     currentIndex = pageNum;
   }
@@ -46,7 +63,7 @@ class _NavINVState extends State<NavINV> {
             Icons.settings,
             color: Colors.white,
           ),
-          label: "Login",
+          label: "Settings",
         ),
         BottomNavigationBarItem(
           icon: Icon(
@@ -54,7 +71,7 @@ class _NavINVState extends State<NavINV> {
             color: Colors.white,
           ),
           backgroundColor: Colors.white,
-          label: "Settings",
+          label: "Logout",
         )
       ],
     );
