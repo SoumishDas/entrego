@@ -7,6 +7,8 @@ import 'package:entrego/utils/f_store.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../homeINV/navbarINV.dart';
+
 class ProductDetailsPage extends StatefulWidget {
   @override
   _ProductDetailsPageState createState() => _ProductDetailsPageState();
@@ -15,6 +17,13 @@ class ProductDetailsPage extends StatefulWidget {
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
   @override
   Widget build(BuildContext context) {
+    BaseState baseState = Provider.of<BaseState>(context, listen: false);
+
+    EntrepreneurIdea idea = baseState.idea;
+
+    baseState.idea.getIdea().then(
+          (value) => setState(() => (idea = baseState.idea)),
+        );
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
