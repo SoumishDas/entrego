@@ -8,54 +8,105 @@ class homeEP extends StatefulWidget {
   State<homeEP> createState() => _homeEPState();
 }
 
-class Product {
-  final String name;
-  final String description;
-  final int numInvestors;
-  final double totalCapital;
-
-  Product({
-    required this.name,
-    required this.description,
-    required this.numInvestors,
-    required this.totalCapital,
-  });
-}
-
 class _homeEPState extends State<homeEP> {
-  final product = Product(
-      name: "name",
-      description: "description",
-      numInvestors: 234,
-      totalCapital: 45678);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                product.name,
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              height: 250,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(''),
+                  fit: BoxFit.cover,
                 ),
               ),
-              SizedBox(height: 8),
-              Text(
-                product.description,
-                style: TextStyle(fontSize: 16),
+            ),
+            const Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 16),
+                  Text(
+                    'Project Name',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    'Tagline: Revolutionizing the Industry',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    'Description:',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor eros ac euismod.',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    'Technologies Used:',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Wrap(
+                    spacing: 8,
+                    children: [
+                      Chip(label: Text('AI')),
+                      Chip(label: Text('Machine Learning')),
+                      Chip(label: Text('IoT')),
+                      // Add more chips as needed
+                    ],
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    'Capital Received: \$500,000',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  Text(
+                    'Capital Left to Receive: \$500,000',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  Text(
+                    'Equity Given: 10%',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    'Tags:',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Wrap(
+                    spacing: 8,
+                    children: [
+                      Chip(label: Text('Innovation')),
+                      Chip(label: Text('Technology')),
+                      Chip(label: Text('Startup')),
+                    ],
+                  ),
+                ],
               ),
-              SizedBox(height: 16),
-              Text('Number of Investors: ${product.numInvestors}'),
-              Text(
-                  'Total Capital Gained: \$${product.totalCapital.toStringAsFixed(2)}'),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       bottomNavigationBar: const NavEP(),
