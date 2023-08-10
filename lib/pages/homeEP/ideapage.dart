@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:entrego/globalState.dart';
 import 'package:entrego/pages/homeEP/navbarEP.dart';
+import 'package:entrego/utils/MyRoutes.dart';
 import 'package:entrego/utils/f_store.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -143,6 +144,9 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       // Add more chips as needed
                     ],
                   ),
+        ElevatedButton(child:const Text("Invest"),onPressed: (){
+          Navigator.pushNamed(context, MyRoutes.InvestPage);
+        },),
                 ],
               ),
             ),

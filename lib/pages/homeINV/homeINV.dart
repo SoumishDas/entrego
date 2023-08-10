@@ -1,4 +1,5 @@
 import 'package:entrego/globalState.dart';
+import 'package:entrego/utils/MyRoutes.dart';
 import 'package:entrego/utils/f_store.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -51,7 +52,7 @@ class _homeINVState extends State<homeINV> {
     BaseState baseState = Provider.of<BaseState>(context, listen: false);
 
     return Scaffold(
-      key:_widgetKey,
+      
       bottomNavigationBar: const NavINV(),
       body: Padding(
         padding: const EdgeInsets.only(top: 20.0),
@@ -64,26 +65,44 @@ class _homeINVState extends State<homeINV> {
           itemBuilder: (context, index) {
             if (index == _data.length) {
               // Show loading indicator at the end
-              //_loadData(baseState.user.prefTags);
               return Center(child: CircularProgressIndicator());
             }
-            return Column(
-              children: [
-                Text(
-                  'Row ${index ~/ 2 + 1}', // Index divided by 2 for row number
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                Card(
-                  margin: EdgeInsets.all(10.0),
-                  child: ListTile(
-                    title: Text('Item ${_data[index].name}'),
-                    
+            return InkWell(
+              onTap: () {
+                    // Handle item tap
+                    print("Image Link: ${_data[index].imgLink}");
+                    baseState.idea.entrepreneurId = _data[index].entrepreneurId;
+                    baseState.idea.getIdea().then((value) {
+                      Navigator.pushNamed(context,MyRoutes.ideapage);
+                    },);
+                  },
+              child: Card(
+                margin: EdgeInsets.all(10.0),
+                child: ListTile(
+                  title: Text('Item ${_data[index].name}'),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: 150, // Adjust the image container's height as needed
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(_data[index].imgLink),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 8), // Add spacing between image and description
+                      Text(_data[index].sIdeaDescription),
+                    ],
                   ),
+                  
                 ),
-              ],
+              ),
             );
           },
         ),
+
       ),
     );
   }

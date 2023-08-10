@@ -11,15 +11,50 @@ class FStore {
 }
 
 class Investor {
+  String uid;
   String investorId; // ID of the investor
+  String ideaId;
   double amountInvested;
   double equityObtained;
 
   Investor({
-    required this.investorId,
-    required this.amountInvested,
-    required this.equityObtained,
+    this.uid = "",
+    this.investorId = "",
+    this.ideaId = "",
+    this.amountInvested = 0,
+    this.equityObtained = 0,
   });
+
+  Future<void> addInvestmentIfNotExists() async {
+    
+      await FirebaseFirestore.instance
+          .collection('investments')
+          .add({
+        'investorId': investorId,
+        'amountInvested': 0.0,
+        'equityObtained': 0.0,
+      }).then((value) {
+        uid = value.id;
+        FirebaseFirestore.instance
+          .collection('investments').doc(uid).set({"uid":uid});
+      },);
+    
+  }
+  Future<void> addInvestmentAndUpdateEquity(
+      double amount, double equity) async {
+    final DocumentReference investorRef =
+        FirebaseFirestore.instance.collection('investments').doc(uid);
+
+    // Update the amountInvested and equityObtained fields
+    await investorRef.update({
+      'amountInvested': FieldValue.increment(amount),
+      'equityObtained': FieldValue.increment(equity),
+    });
+    // Update the local Investor object
+  amountInvested += amount;
+  equityObtained += equity;
+    
+  }
 
   Map<String, dynamic> toMap() {
     return {
@@ -63,8 +98,8 @@ class EntrepreneurIdea {
     return await FirebaseFirestore.instance
         .collection('app_users')
         .doc(entrepreneurId)
-        .collection('ideas')
-        .add({
+        .collection('ideas').doc(entrepreneurId)
+        .set({
       'imgLink':imgLink,
       'entrepreneurId':entrepreneurId,
       'name': name,
@@ -75,6 +110,7 @@ class EntrepreneurIdea {
       'capitalRaised': capitalRaised,
       "tags": tags,
       'techUsed': techUsed,
+      "contactInfo":contactInfo,
     }).then((value) {
       print("Idea Saved");
       return true;
@@ -134,6 +170,7 @@ class EntrepreneurIdea {
       Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
 
       ideas.add(EntrepreneurIdea(
+        imgLink : data["imgLink"] ?? "",
         entrepreneurId: data["entrepreneurId"],
         name: data["name"],
         sIdeaDescription: data["sIdeaDescription"],
@@ -156,16 +193,13 @@ class EntrepreneurIdea {
     investors.add(investor);
     capitalRaised += investor.amountInvested;
 
-    // Calculate equity based on the entrepreneur's equity offered and investor's investment
-    double entrepreneurEquity =
-        investor.amountInvested * (equityOffered / fundingNeeded);
-    investor.equityObtained += entrepreneurEquity;
+    
 
     await FirebaseFirestore.instance
         .collection('app_users')
         .doc(entrepreneurId)
         .collection('ideas')
-        .doc()
+        .doc(entrepreneurId)
         .update({
       'capitalRaised': capitalRaised,
       'investors': FieldValue.arrayUnion([investor.toMap()])
@@ -175,45 +209,44 @@ class EntrepreneurIdea {
 
 class Portfolio {
   String uid; // User ID or document ID
-  List<Investment> investments;
+  List<Investor> investments;
 
   Portfolio({
-    required this.uid,
+    this.uid ="",
     this.investments = const [],
   });
 
-  Future<void> addInvestment(Investment investment) async {
-    investments.add(investment);
-    await FirebaseFirestore.instance
+  Future<void> addInvestment(Investor investment) async {
+    // Get a reference to the user's portfolio document
+    final portfolioRef = FirebaseFirestore.instance
         .collection('app_users')
         .doc(uid)
         .collection('portfolio')
-        .doc('investments')
-        .set({
-      'investments': FieldValue.arrayUnion([investment.toMap()])
-    }, SetOptions(merge: true));
+        .doc('investments');
+
+    // Check if the portfolio document exists
+    final portfolioSnapshot = await portfolioRef.get();
+
+    if (portfolioSnapshot.exists) {
+      // Portfolio document exists, update the investments field
+      await portfolioRef.set(
+        {
+          'investments': FieldValue.arrayUnion([investment.toMap()])
+        },
+        SetOptions(merge: true),
+      );
+    } else {
+      // Portfolio document doesn't exist, create a new portfolio and add the investment
+      await portfolioRef.set(
+        {
+          'investments': [investment.toMap()]
+        },
+      );
+    }
   }
 }
 
-class Investment {
-  String ideaId; // ID of the entrepreneur's idea
-  double amountInvested;
-  double equityPercentage;
 
-  Investment({
-    required this.ideaId,
-    required this.amountInvested,
-    required this.equityPercentage,
-  });
-
-  Map<String, dynamic> toMap() {
-    return {
-      'ideaId': ideaId,
-      'amountInvested': amountInvested,
-      'equityPercentage': equityPercentage,
-    };
-  }
-}
 
 class AppUser {
   String uid;
@@ -242,6 +275,28 @@ class AppUser {
   // Create a CollectionReference called users that references the firestore collection
   CollectionReference users =
       FirebaseFirestore.instance.collection('app_users');
+
+  Future<void> subtractCapital(int amount) async {
+    if (isInvestor) {
+      // Calculate new capital value after subtracting the amount
+      int newCapital = capital - amount;
+
+      if (newCapital >= 0) {
+        await FirebaseFirestore.instance
+            .collection('app_users')
+            .doc(uid)
+            .update({
+          'capital': newCapital,
+        });
+
+        capital = newCapital;
+      } else {
+        print('Insufficient capital');
+      }
+    } else {
+      print("Only investors can subtract capital.");
+    }
+  }
 
   Future<bool> addUser() {
     // Call the user's CollectionReference to add a new user

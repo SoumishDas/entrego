@@ -1,5 +1,6 @@
 // Page IMPORTS
 import 'package:entrego/pages/homeEP/formEP.dart';
+import 'package:entrego/pages/homeINV/investPg.dart';
 
 import '../pages/choicePg.dart';
 import 'package:flutter/material.dart';
@@ -27,12 +28,12 @@ class MyRoutes {
   static String selectPage = "/signup/select";
   static String ideapage = "/homeINV/ideas";
   static String formForEP = "/signup/select/choose2/formForEP";
-
+  static String  InvestPage = '/homeINV/invest';
 
   Map<String, Widget Function(BuildContext)> getRoutes(BuildContext context) {
     return {
       // initialPage: (context) => const FirstPage(),
-      initialPage: (context) => ProductDetailsPage(),
+      initialPage: (context) => FirstPage(),
       ideapage: (context) => ProductDetailsPage(),
       homeEPPage: (context) => const homeEP(),
       homeINVPage: (context) => const homeINV(),
@@ -41,6 +42,7 @@ class MyRoutes {
       choice2Page: (context) => const choice2(),
       selectPage: (context) => const select(),
       formForEP: (context) =>  formEP(),
+      InvestPage: (context) => const investPg(),
       
 
     };

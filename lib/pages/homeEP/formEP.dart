@@ -1,6 +1,7 @@
 import 'package:entrego/globalState.dart';
 import 'package:entrego/utils/MyRoutes.dart';
 import 'package:entrego/utils/f_store.dart';
+import 'package:entrego/utils/tags.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -24,8 +25,8 @@ class _formEPState extends State<formEP> {
   List<String> selectedTech = [];
   String searchQuery = '';
   String searchQuery_tech = '';
-  List<String> tagList = ['alpha', 'beta', 'gamma', 'delta'];
-  List<String> techList = ['python', 'ruby', 'R', 'rust'];
+  List<String> tagList = tags.genreTags;
+  List<String> techList = tags.techTags;
 
   EntrepreneurIdea entrepreneurIdea = EntrepreneurIdea();
 
@@ -114,6 +115,7 @@ class _formEPState extends State<formEP> {
                 _longDescription = value;
               });
             },
+            maxLines: 5,
           ),
           SizedBox(height: 20),
           TextField(
