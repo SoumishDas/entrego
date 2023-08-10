@@ -1,5 +1,7 @@
+import 'package:entrego/globalState.dart';
+import 'package:entrego/utils/f_store.dart';
 import 'package:flutter/material.dart';
-// import 'package:url_launcher/url_launcher.dart';
+import 'package:provider/provider.dart';
 
 class investPg extends StatefulWidget {
   const investPg({super.key});
@@ -9,82 +11,92 @@ class investPg extends StatefulWidget {
 }
 
 class _investPgState extends State<investPg> {
-  // void openWhatsApp() async {
-  //   final phoneNumber = '1234567890'; // Replace with the desired phone number
-  //   final url = 'https://wa.me/$phoneNumber/';
-
-  //   if (await canLaunch(url)) {
-  //     await launch(url);
-  //   } else {
-  //     throw 'Could not launch WhatsApp.';
-  //   }
-  // }
+  double _enteredValue = 0.0;
 
   @override
   Widget build(BuildContext context) {
+    BaseState baseState = Provider.of<BaseState>(context, listen: false);
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            SizedBox(height: 40), // Add some spacing at the top
-            ElevatedButton(
-              // onPressed: openWhatsApp,
-              onPressed: () {},
-              child: Text('Open WhatsApp'),
-            ),
-            SizedBox(height: 20),
-            Container(
-              padding: EdgeInsets.all(16.0),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: Column(
-                children: [
-                  TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Enter your message...',
-                    ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Container(
+                padding: EdgeInsets.all(16),
+                child: Text(
+                  'PortFolio: \$ ${baseState.user.capital}',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
-                  SizedBox(height: 10),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Add functionality for the button here
-                    },
-                    child: Text('Send'),
-                  ),
-                ],
+                ),
               ),
-            ),
-            SizedBox(height: 20),
-            Container(
-              padding: EdgeInsets.all(16.0),
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-                borderRadius: BorderRadius.circular(10.0),
+              SizedBox(height: 20),
+              TextField(
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                onChanged: (value) {
+                  setState(() {
+                    _enteredValue = double.tryParse(value) ?? 0.0;
+                  });
+                },
+                decoration: InputDecoration(
+                  labelText: 'Enter Amount to allocate',
+                  border: OutlineInputBorder(),
+                ),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Enter your message...',
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Add functionality for the button here
-                    },
-                    child: Text('Send'),
-                  ),
-                  // Add any content you want to display here
-                ],
+              SizedBox(height: 10),
+              Text(
+                '% of Portfolio: ${(_enteredValue / baseState.user.capital) * 100}',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-          ],
+              SizedBox(height: 20),
+              Text(
+                'Equity you get in return: ${(_enteredValue / baseState.idea.fundingNeeded) * baseState.idea.equityOffered}',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  // Implement Invest button functionality
+                  Investor investment =
+                      Investor(investorId: baseState.user.uid);
+                  Portfolio portfolio = Portfolio(uid: baseState.user.uid);
+
+                  investment.addInvestmentIfNotExists().then((value) {
+                    investment
+                        .addInvestmentAndUpdateEquity(
+                            _enteredValue,
+                            (_enteredValue / baseState.idea.fundingNeeded) *
+                                baseState.idea.equityOffered)
+                        .then(
+                      (value) {
+                        baseState.idea.addInvestment(investment).then((value) {
+                          portfolio.addInvestment(investment);
+                        });
+                      },
+                    );
+                  });
+                },
+                child: Text('Invest'),
+              ),
+              SizedBox(height: 20),
+              Text(
+                'Tip: We recommend investing small amounts into multiple businesses',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
