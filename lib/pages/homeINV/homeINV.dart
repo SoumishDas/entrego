@@ -15,17 +15,42 @@ class homeINV extends StatefulWidget {
 class _homeINVState extends State<homeINV> {
   List<EntrepreneurIdea> _data = [];
   Portfolio portfolio = Portfolio();
+  double totalMoney = 0;
+  int numInvestments = 0;
+  int capitalLeft = 0;
   int _pageIndex = 0;
   int _pageSize = 20;
 
   final GlobalKey<_homeINVState> _widgetKey = GlobalKey<_homeINVState>();
+
+  void showErrorMessage(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        duration: const Duration(seconds: 3),
+      ),
+    );
+  }
 
   @override
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () {
       final user = Provider.of<BaseState>(context, listen: false).user;
-
+      portfolio.uid = user.uid;
+      portfolio.getAllInvestments().then(
+        (value) {
+          print(value.length);
+          numInvestments = value.length;
+          capitalLeft = user.capital;
+          for (Investor invest in value) {
+            totalMoney += invest.amountInvested;
+          }
+          setState(() {});
+        },
+      ).onError((error, stackTrace) {
+        showErrorMessage("Could Not Load Investments $error");
+      });
       _loadData(user.prefTags);
     });
   }
@@ -99,9 +124,9 @@ class _homeINVState extends State<homeINV> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Total Money Invested"),
-                            Text("No. of investments"),
-                            Text("Portfolio left"),
+                            Text("Total Money Invested: $totalMoney"),
+                            Text("No. of investments: $numInvestments"),
+                            Text("Portfolio left: $capitalLeft"),
                           ],
                         ),
                       )

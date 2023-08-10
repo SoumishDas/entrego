@@ -26,20 +26,21 @@ class Investor {
   });
 
   Future<void> addInvestmentIfNotExists() async {
-    
-      await FirebaseFirestore.instance
-          .collection('investments')
-          .add({
-        'investorId': investorId,
-        'amountInvested': 0.0,
-        'equityObtained': 0.0,
-      }).then((value) {
+    await FirebaseFirestore.instance.collection('investments').add({
+      'investorId': investorId,
+      'amountInvested': 0.0,
+      'equityObtained': 0.0,
+    }).then(
+      (value) {
         uid = value.id;
         FirebaseFirestore.instance
-          .collection('investments').doc(uid).set({"uid":uid});
-      },);
-    
+            .collection('investments')
+            .doc(uid)
+            .set({"uid": uid});
+      },
+    );
   }
+
   Future<void> addInvestmentAndUpdateEquity(
       double amount, double equity) async {
     final DocumentReference investorRef =
@@ -51,13 +52,12 @@ class Investor {
       'equityObtained': FieldValue.increment(equity),
     });
     // Update the local Investor object
-  amountInvested += amount;
-  equityObtained += equity;
-    
+    amountInvested += amount;
+    equityObtained += equity;
   }
+
   // Define a constructor to create an Investor object from a Map
   Investor.fromMap(Map<String, dynamic> map)
-        
       : investorId = map['investorId'],
         uid = "",
         ideaId = map['ideaId'],
@@ -105,10 +105,11 @@ class EntrepreneurIdea {
     return await FirebaseFirestore.instance
         .collection('app_users')
         .doc(entrepreneurId)
-        .collection('ideas').doc(entrepreneurId)
+        .collection('ideas')
+        .doc(entrepreneurId)
         .set({
-      'imgLink':imgLink,
-      'entrepreneurId':entrepreneurId,
+      'imgLink': imgLink,
+      'entrepreneurId': entrepreneurId,
       'name': name,
       'sIdeaDescription': sIdeaDescription,
       'bIdeaDescription': bIdeaDescription,
@@ -117,7 +118,7 @@ class EntrepreneurIdea {
       'capitalRaised': capitalRaised,
       "tags": tags,
       'techUsed': techUsed,
-      "contactInfo":contactInfo,
+      "contactInfo": contactInfo,
     }).then((value) {
       print("Idea Saved");
       return true;
@@ -164,7 +165,8 @@ class EntrepreneurIdea {
       return true;
     }
   }
-   Future<List<EntrepreneurIdea>> getIdeasByTags(List<String> tags) async {
+
+  Future<List<EntrepreneurIdea>> getIdeasByTags(List<String> tags) async {
     final QuerySnapshot res = await FirebaseFirestore.instance
         .collectionGroup('ideas')
         .where('tags', arrayContainsAny: tags)
@@ -177,7 +179,7 @@ class EntrepreneurIdea {
       Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
 
       ideas.add(EntrepreneurIdea(
-        imgLink : data["imgLink"] ?? "",
+        imgLink: data["imgLink"] ?? "",
         entrepreneurId: data["entrepreneurId"],
         name: data["name"],
         sIdeaDescription: data["sIdeaDescription"],
@@ -194,13 +196,11 @@ class EntrepreneurIdea {
     }
 
     return ideas;
-   }
+  }
 
   Future<void> addInvestment(Investor investor) async {
     investors.add(investor);
     capitalRaised += investor.amountInvested;
-
-    
 
     await FirebaseFirestore.instance
         .collection('app_users')
@@ -219,7 +219,7 @@ class Portfolio {
   List<Investor> investments;
 
   Portfolio({
-    this.uid ="",
+    this.uid = "",
     this.investments = const [],
   });
 
@@ -253,30 +253,31 @@ class Portfolio {
   }
 
   Future<List<Investor>> getAllInvestments() async {
-  final portfolioRef = FirebaseFirestore.instance
-      .collection('app_users')
-      .doc(uid)
-      .collection('portfolio')
-      .doc('investments');
+    final portfolioRef = FirebaseFirestore.instance
+        .collection('app_users')
+        .doc(uid)
+        .collection('portfolio')
+        .doc('investments');
 
-  final portfolioSnapshot = await portfolioRef.get();
+    final portfolioSnapshot = await portfolioRef.get();
 
-  if (portfolioSnapshot.exists) {
-    final data = portfolioSnapshot.data();
-    if (data != null && data['investments'] != null) {
-      final List<dynamic> investmentsData = data['investments'];
-      final List<Investor> investmentsList = investmentsData
-          .map<Investor>((e) => Investor.fromMap(e as Map<String, dynamic>))
-          .toList();
-      return investmentsList;
+    if (portfolioSnapshot.exists) {
+      final data = portfolioSnapshot.data();
+      if (data != null && data['investments'] != null) {
+        final List<dynamic> investmentsData = data['investments'];
+        final List<Investor> investmentsList = investmentsData
+            .map<Investor>((e) => Investor(
+                  amountInvested: e['amountInvested'] ?? 0,
+                  equityObtained: e["equityObtained"] ?? 0,
+                ))
+            .toList();
+        return investmentsList;
+      }
     }
+
+    return [];
   }
-
-  return [];
 }
-}
-
-
 
 class AppUser {
   String uid;

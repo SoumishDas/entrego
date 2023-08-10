@@ -13,7 +13,7 @@ class investPg extends StatefulWidget {
 
 class _investPgState extends State<investPg> {
   double _enteredValue = 0;
-
+  bool flag = true;
   void showErrorMessage(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -85,14 +85,19 @@ class _investPgState extends State<investPg> {
                         if (val >= baseState.user.capital) {
                           showErrorMessage(
                               "Entered amount is greater than available Capital");
+                          flag = false;
+                          return;
                         } else if (val >
                             (baseState.idea.fundingNeeded -
                                 baseState.idea.capitalRaised)) {
                           showErrorMessage(
                               "More funding given than what is needed");
+                          flag = false;
+                          return;
                         }
                         setState(() {
                           _enteredValue = val;
+                          flag = true;
                         });
                       },
                       decoration: InputDecoration(
@@ -121,6 +126,10 @@ class _investPgState extends State<investPg> {
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Color.fromRGBO(43, 98, 102, 1)),
                       onPressed: () {
+                        if (!flag) {
+                          showErrorMessage("There are errors in form");
+                          return;
+                        }
                         // Implement Invest button functionality
                         Investor investment =
                             Investor(investorId: baseState.user.uid);
@@ -139,7 +148,16 @@ class _investPgState extends State<investPg> {
                               baseState.idea
                                   .addInvestment(investment)
                                   .then((value) {
-                                portfolio.addInvestment(investment);
+                                portfolio.addInvestment(investment).then(
+                                  (value) {
+                                    baseState.user
+                                        .subtractCapital(_enteredValue.toInt())
+                                        .then((value) {
+                                      Navigator.pushNamed(
+                                          context, MyRoutes.homeINVPage);
+                                    });
+                                  },
+                                );
                               });
                             },
                           );
