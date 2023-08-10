@@ -27,7 +27,7 @@ class mailAuth {
     });
   }
 
-  Future<void> register(BuildContext context, email, String password) async {
+  Future<String> register(BuildContext context, email, String password) async {
     UserCredential userCred;
     try {
       await auth
@@ -42,18 +42,23 @@ class mailAuth {
       if (e is FirebaseAuthException) {
         if (e.code == 'email-already-in-use') {
           // Account already exists, try to log in
-          await auth
+          String text = await auth
               .signInWithEmailAndPassword(email: email, password: password)
               .then((value) {
             checkAppUser(context, value);
-          });
-          ;
+            return "";
+          }).onError((error, stackTrace) { return "Wrong Password";});
+          
           print("Logged in: $email");
+          return text;
+          
         } else {
           // Handle other FirebaseAuthException cases
           print("Error: ${e.code}");
+          return e.message!;
         }
       }
-    }
+      
+    }return "";
   }
 }
