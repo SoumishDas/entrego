@@ -40,7 +40,7 @@ class _investPgState extends State<investPg> {
             padding: const EdgeInsets.all(16.0),
             child: Center(
               child: Container(
-                height: MediaQuery.of(context).size.height * 0.52,
+                height: MediaQuery.of(context).size.height * 0.6,
                 width: MediaQuery.of(context).size.width * 0.9,
                 margin: EdgeInsets.all(16),
                 padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
