@@ -15,15 +15,25 @@ class ProductDetailsPage extends StatefulWidget {
 }
 
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
+  EntrepreneurIdea idea = EntrepreneurIdea();
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero,(){
+    final BaseState baseState = Provider.of<BaseState>(context, listen: false);
+
+      baseState.idea.getIdea().then(
+          (value) => setState(() => (idea = baseState.idea)),
+        );
+      
+});}
+ 
+
   @override
   Widget build(BuildContext context) {
     BaseState baseState = Provider.of<BaseState>(context, listen: false);
-
-    EntrepreneurIdea idea = baseState.idea;
-
-    baseState.idea.getIdea().then(
-          (value) => setState(() => (idea = baseState.idea)),
-        );
+     
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
