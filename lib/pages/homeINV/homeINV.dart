@@ -14,6 +14,7 @@ class homeINV extends StatefulWidget {
 
 class _homeINVState extends State<homeINV> {
   List<EntrepreneurIdea> _data = [];
+  Portfolio portfolio = Portfolio();
   int _pageIndex = 0;
   int _pageSize = 20;
 

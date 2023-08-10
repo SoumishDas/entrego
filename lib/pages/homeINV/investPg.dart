@@ -81,14 +81,18 @@ class _investPgState extends State<investPg> {
                       keyboardType:
                           TextInputType.numberWithOptions(decimal: true),
                       onChanged: (value) {
-                        double val  = double.tryParse(value) ?? 0;
-                        if(val >= baseState.user.capital){
-                          showErrorMessage("Entered amount is greater than available Capital");
-                        } else if (val > (baseState.idea.fundingNeeded - baseState.idea.capitalRaised)){
-                          showErrorMessage("More funding given than what is needed");
+                        double val = double.tryParse(value) ?? 0;
+                        if (val >= baseState.user.capital) {
+                          showErrorMessage(
+                              "Entered amount is greater than available Capital");
+                        } else if (val >
+                            (baseState.idea.fundingNeeded -
+                                baseState.idea.capitalRaised)) {
+                          showErrorMessage(
+                              "More funding given than what is needed");
                         }
                         setState(() {
-                        _enteredValue = val;
+                          _enteredValue = val;
                         });
                       },
                       decoration: InputDecoration(
@@ -123,25 +127,38 @@ class _investPgState extends State<investPg> {
                         Portfolio portfolio =
                             Portfolio(uid: baseState.user.uid);
 
-                  investment.addInvestmentIfNotExists().then((value) {
-                    investment.addInvestmentAndUpdateEquity( _enteredValue, (_enteredValue/baseState.idea.fundingNeeded) * baseState.idea.equityOffered).then((value) {
-                      baseState.idea.addInvestment(investment).then((value) {
-                        portfolio.addInvestment(investment);
-                      });
-                    },);
-                  });
-                },
-                child: Text('Invest'),
-              ),
-              SizedBox(height: 20),
-              Text(
-                'Tip: We recommend investing small amounts into multiple businesses',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontStyle: FontStyle.italic,
+                        investment.addInvestmentIfNotExists().then((value) {
+                          investment
+                              .addInvestmentAndUpdateEquity(
+                                  _enteredValue,
+                                  (_enteredValue /
+                                          baseState.idea.fundingNeeded) *
+                                      baseState.idea.equityOffered)
+                              .then(
+                            (value) {
+                              baseState.idea
+                                  .addInvestment(investment)
+                                  .then((value) {
+                                portfolio.addInvestment(investment);
+                              });
+                            },
+                          );
+                        });
+                      },
+                      child: Text('Invest'),
+                    ),
+                    SizedBox(height: 20),
+                    const Text(
+                      'Tip: We recommend investing small amounts into multiple businesses',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
+            ),
           ),
         ),
       ),
