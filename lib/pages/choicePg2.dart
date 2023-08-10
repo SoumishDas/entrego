@@ -1,5 +1,6 @@
 import 'package:entrego/globalState.dart';
 import 'package:entrego/utils/MyRoutes.dart';
+import 'package:entrego/utils/tags.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -98,11 +99,5 @@ class _choice2State extends State<choice2> {
 // Replace this function with your logic to fetch tag data from input
 List<String> fetchTagsFromInput() {
   // Example: Fetch tags from an API, database, or any other source
-  return [
-    'Tag 1',
-    'Tag 2',
-    'Tag 3',
-    'Tag 4',
-    'Tag 5'
-  ]; // Replace with your tag data
+  return tags.genreTags; // Replace with your tag data
 }
