@@ -98,8 +98,8 @@ class _formEPState extends State<formEP> {
           child: Container(
             height: MediaQuery.of(context).size.height * 0.9,
             width: MediaQuery.of(context).size.width * 0.9,
-            margin: EdgeInsets.all(16),
-            padding: EdgeInsets.all(16),
+            margin: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
@@ -108,7 +108,7 @@ class _formEPState extends State<formEP> {
                       color: Colors.grey.withOpacity(0.5),
                       spreadRadius: 2,
                       blurRadius: 5,
-                      offset: Offset(0, 3))
+                      offset: const Offset(0, 3))
                 ]),
             child: Padding(
               padding: const EdgeInsets.fromLTRB(16, 40, 16, 0),
@@ -123,7 +123,7 @@ class _formEPState extends State<formEP> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       TextField(
                         decoration: InputDecoration(
                           labelText: 'Product Name',
@@ -138,7 +138,7 @@ class _formEPState extends State<formEP> {
                           });
                         },
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       TextField(
                         decoration: InputDecoration(
                           labelText: 'Short Description',
@@ -153,7 +153,7 @@ class _formEPState extends State<formEP> {
                           });
                         },
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       TextField(
                         decoration: InputDecoration(
                           labelText: 'Long Description',
@@ -169,7 +169,7 @@ class _formEPState extends State<formEP> {
                         },
                         maxLines: null,
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       TextField(
                         decoration: InputDecoration(
                           labelText: 'Capital Required',
@@ -185,7 +185,7 @@ class _formEPState extends State<formEP> {
                           });
                         },
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       TextField(
                         decoration: InputDecoration(
                           labelText: 'Equity',
@@ -200,7 +200,7 @@ class _formEPState extends State<formEP> {
                           });
                         },
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       TextField(
                         decoration: InputDecoration(
                           labelText: 'Contact Information',
@@ -215,28 +215,29 @@ class _formEPState extends State<formEP> {
                           });
                         },
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       _selectedImageFile == null
-                          ? Text('No Image Selected')
+                          ? const Text('No Image Selected')
                           : Image.file(
                               _selectedImageFile!,
                               height: 150,
                               width: 150,
                               fit: BoxFit.cover,
                             ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       ElevatedButton(
                         onPressed: _selectImage,
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: Color.fromRGBO(43, 98, 102, 1),
+                            backgroundColor:
+                                const Color.fromRGBO(43, 98, 102, 1),
                             foregroundColor: Colors.white),
-                        child: Text(
+                        child: const Text(
                           'Select Image',
                           style: TextStyle(fontSize: 20),
                         ),
                       ),
-                      SizedBox(height: 10),
-                      Text('Tags:', style: TextStyle(fontSize: 16)),
+                      const SizedBox(height: 10),
+                      const Text('Tags:', style: TextStyle(fontSize: 16)),
                       Column(
                         children: [
                           Padding(
@@ -281,8 +282,9 @@ class _formEPState extends State<formEP> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 10),
-                          Text('Tech Tags:', style: TextStyle(fontSize: 16)),
+                          const SizedBox(height: 10),
+                          const Text('Tech Tags:',
+                              style: TextStyle(fontSize: 16)),
                           Column(
                             children: [
                               Padding(
@@ -344,8 +346,9 @@ class _formEPState extends State<formEP> {
                                     // Display a snackbar or an alert to notify the user about missing fields
                                     showErrorMessage("Please Fill All Fields");
                                     return;
-                                  }else if (_equity >= 100){
-                                    showErrorMessage("Please give Valid Equity Percentage");
+                                  } else if (_equity >= 100) {
+                                    showErrorMessage(
+                                        "Please give Valid Equity Percentage");
                                     return;
                                   }
 
@@ -364,8 +367,6 @@ class _formEPState extends State<formEP> {
                                   entrepreneurIdea.tags = selectedTags;
                                   entrepreneurIdea.techUsed = selectedTech;
 
-                                  
-
                                   _uploadImage().then((value) {
                                     entrepreneurIdea.imgLink = value;
                                     entrepreneurIdea.saveIdea().then(
@@ -374,7 +375,8 @@ class _formEPState extends State<formEP> {
                                           Navigator.pushNamed(
                                               context, MyRoutes.homeEPPage);
                                         } else {
-                                          showErrorMessage("Idea Could Not Be Saved");
+                                          showErrorMessage(
+                                              "Idea Could Not Be Saved");
                                           return;
                                         }
                                       },

@@ -23,8 +23,8 @@ class _NavINVState extends State<NavINV> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Under Development"),
-            content: Text("The 'Settings' page is not developed yet."),
+            title: const Text("Under Development"),
+            content: const Text("The 'Settings' page is not developed yet."),
             actions: [
               TextButton(
                 onPressed: () {

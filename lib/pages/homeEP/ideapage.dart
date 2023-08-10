@@ -1,13 +1,9 @@
-import 'dart:ui';
-import 'dart:math';
-
 import 'package:entrego/globalState.dart';
 import 'package:entrego/pages/homeEP/navbarEP.dart';
 import 'package:entrego/utils/MyRoutes.dart';
 import 'package:entrego/utils/f_store.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:entrego/pages/homeEP/navbarEP.dart';
 
 import '../homeINV/navbarINV.dart';
 
@@ -172,27 +168,31 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           // Add more chips as needed
                         ],
                       ),
-                      ElevatedButton(
-                        child: const Text("Invest"),
-                        style: ElevatedButton.styleFrom(
-                          alignment: Alignment.center,
-                          fixedSize: Size(100, 45),
-                          backgroundColor: Color.fromRGBO(
-                              43, 98, 102, 1), // Set the background color
-                          foregroundColor: Colors.white, // Set the text color
-                          textStyle: TextStyle(
-                            fontSize: 20, // Set the text size
-                            fontWeight: FontWeight.w500,
-                          ),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20)),
-                        ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, MyRoutes.InvestPage);
-                        },
-                      ),
+                      baseState.user.isInvestor
+                          ? ElevatedButton(
+                              child: const Text("Invest"),
+                              style: ElevatedButton.styleFrom(
+                                alignment: Alignment.center,
+                                fixedSize: Size(100, 45),
+                                backgroundColor: Color.fromRGBO(
+                                    43, 98, 102, 1), // Set the background color
+                                foregroundColor:
+                                    Colors.white, // Set the text color
+                                textStyle: TextStyle(
+                                  fontSize: 20, // Set the text size
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 10),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20)),
+                              ),
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                    context, MyRoutes.InvestPage);
+                              },
+                            )
+                          : const SizedBox(),
                     ],
                   ),
                 ),

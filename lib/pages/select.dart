@@ -24,8 +24,8 @@ class _selectState extends State<select> {
             child: Container(
               height: MediaQuery.of(context).size.height * 0.3,
               width: MediaQuery.of(context).size.width * 0.8,
-              margin: EdgeInsets.all(16),
-              padding: EdgeInsets.all(16),
+              margin: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
@@ -34,7 +34,7 @@ class _selectState extends State<select> {
                     color: Colors.grey.withOpacity(0.5),
                     spreadRadius: 2,
                     blurRadius: 5,
-                    offset: Offset(0, 3),
+                    offset: const Offset(0, 3),
                   ),
                 ],
               ),
@@ -45,7 +45,7 @@ class _selectState extends State<select> {
                     "I am an ...",
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   ElevatedButton(
@@ -54,21 +54,21 @@ class _selectState extends State<select> {
                     },
                     child: const Text("Investor"),
                     style: ElevatedButton.styleFrom(
-                      fixedSize: Size(250, 50),
-                      backgroundColor: Color.fromRGBO(
+                      fixedSize: const Size(250, 50),
+                      backgroundColor: const Color.fromRGBO(
                           43, 98, 102, 1), // Set the background color
                       foregroundColor: Colors.white, // Set the text color
-                      textStyle: TextStyle(
+                      textStyle: const TextStyle(
                         fontSize: 25, // Set the text size
                         fontWeight: FontWeight.bold,
                       ),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20)),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   ElevatedButton(
@@ -77,19 +77,19 @@ class _selectState extends State<select> {
                     },
                     child: const Text("Entrepreneur"),
                     style: ElevatedButton.styleFrom(
-                      fixedSize: Size(250, 50),
-                      backgroundColor: Color.fromRGBO(
+                      fixedSize: const Size(250, 50),
+                      backgroundColor: const Color.fromRGBO(
                           43, 98, 102, 1), // Set the background color
                       foregroundColor: Colors.white, // Set the text color
-                      textStyle: TextStyle(
+                      textStyle: const TextStyle(
                         fontSize: 25, // Set the text size
                         fontWeight: FontWeight.bold,
                       ),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20)),
-                      minimumSize: Size(150, 50),
+                      minimumSize: const Size(150, 50),
                     ),
                   ),
                 ],

@@ -13,15 +13,11 @@ class homeINV extends StatefulWidget {
 }
 
 class _homeINVState extends State<homeINV> {
-  List<EntrepreneurIdea> _data = [];
+  final List<EntrepreneurIdea> _data = [];
   Portfolio portfolio = Portfolio();
   double totalMoney = 0;
   int numInvestments = 0;
   int capitalLeft = 0;
-  int _pageIndex = 0;
-  int _pageSize = 20;
-
-  final GlobalKey<_homeINVState> _widgetKey = GlobalKey<_homeINVState>();
 
   void showErrorMessage(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -97,7 +93,7 @@ class _homeINVState extends State<homeINV> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 "Statistics",
                 textAlign: TextAlign.left,
                 style: TextStyle(
@@ -105,7 +101,7 @@ class _homeINVState extends State<homeINV> {
                     fontWeight: FontWeight.bold,
                     fontSize: 35),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               Container(
@@ -126,19 +122,19 @@ class _homeINVState extends State<homeINV> {
                           children: [
                             Text(
                               "Total Money Invested: $totalMoney",
-                              style: TextStyle(fontSize: 20),
+                              style: const TextStyle(fontSize: 20),
                             ),
                             Text("No. of investments: $numInvestments",
-                                style: TextStyle(fontSize: 20)),
+                                style: const TextStyle(fontSize: 20)),
                             Text("Portfolio left: $capitalLeft",
-                                style: TextStyle(fontSize: 20)),
+                                style: const TextStyle(fontSize: 20)),
                           ],
                         ),
                       )
                     ],
                   )),
-              SizedBox(height: 10),
-              Text(
+              const SizedBox(height: 10),
+              const Text(
                 "Feed",
                 textAlign: TextAlign.left,
                 style: TextStyle(
@@ -173,8 +169,9 @@ class _homeINVState extends State<homeINV> {
                           margin: const EdgeInsets.all(3.0),
                           child: ListTile(
                             title: Text(
-                              '${_data[index].name}',
-                              style: TextStyle(fontWeight: FontWeight.w600),
+                              _data[index].name,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.w600),
                             ),
                             subtitle: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -190,7 +187,6 @@ class _homeINVState extends State<homeINV> {
                                   ),
                                 ),
                                 const SizedBox(height: 8),
-                                Text(_data[index].sIdeaDescription),
                               ],
                             ),
                           ),

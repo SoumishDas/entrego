@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
-import '../pages/homeEP/homeEP.dart';
 
 class AuthState {
   //contains methods for user sign in and authentication
@@ -44,7 +43,6 @@ class AuthState {
           baseState.user.email = user.email!;
           baseState.user.getUser(user.uid).then((value) {
             if (value == true) {
-              print("##############");
               print(user.displayName);
               if (baseState.user.isInvestor) {
                 Navigator.pushNamed(context, MyRoutes.homeINVPage);
@@ -53,16 +51,15 @@ class AuthState {
               }
             } else {
               print("!!!!!!!!!!!!!!!!!!!!!");
-              Navigator.pushNamed(context, MyRoutes.choicePage);
+              Navigator.pushNamed(context, MyRoutes.selectPage);
             }
-          return true;
+            return true;
           });
         }
-      }else{
+      } else {
         return false;
       }
     }
     return false;
-    
   }
 }

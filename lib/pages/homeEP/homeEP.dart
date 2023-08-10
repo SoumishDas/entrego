@@ -230,6 +230,7 @@ class _homeEPState extends State<homeEP> {
           ),
         ),
       ),
+      bottomNavigationBar: const NavEP(),
     );
   }
 }

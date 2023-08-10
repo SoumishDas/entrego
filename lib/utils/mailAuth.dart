@@ -2,8 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:entrego/globalState.dart';
 import 'package:entrego/utils/MyRoutes.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:provider/provider.dart';
 
 class mailAuth {
@@ -47,18 +46,19 @@ class mailAuth {
               .then((value) {
             checkAppUser(context, value);
             return "";
-          }).onError((error, stackTrace) { return "Wrong Password";});
-          
+          }).onError((error, stackTrace) {
+            return "Wrong Password";
+          });
+
           print("Logged in: $email");
           return text;
-          
         } else {
           // Handle other FirebaseAuthException cases
           print("Error: ${e.code}");
           return e.message!;
         }
       }
-      
-    }return "";
+    }
+    return "";
   }
 }

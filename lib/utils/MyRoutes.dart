@@ -6,15 +6,15 @@ import '../pages/choicePg.dart';
 import 'package:flutter/material.dart';
 
 import '../pages/homeEP/homeEP.dart';
-import '../pages/homeEP/navbarEP.dart';
+
 import '../pages/homeINV/homeINV.dart';
-import '../pages/homeINV/navbarINV.dart';
+
 import '../pages/login.dart';
 
 import '../pages/FirstPage.dart';
 import '../pages/select.dart';
 import '../pages/choicePg2.dart';
-import '../pages/choicePg.dart';
+
 import '../pages/homeEP/ideapage.dart';
 
 class MyRoutes {

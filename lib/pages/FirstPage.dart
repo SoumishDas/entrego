@@ -1,4 +1,3 @@
-import 'package:entrego/pages/login.dart';
 import 'package:entrego/utils/auth.dart';
 import 'package:flutter/material.dart';
 import '../utils/MyRoutes.dart';
@@ -34,7 +33,7 @@ class _FirstPageState extends State<FirstPage> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Padding(
+                const Padding(
                   padding: EdgeInsets.all(20.0),
                   child: SizedBox(
                     height: 125,
@@ -66,14 +65,17 @@ class _FirstPageState extends State<FirstPage> {
                                 ),
                               ),
                               const SizedBox(height: 15),
-                              Container(
-                                padding: EdgeInsets.all(20),
-                                child: Center(
-                                  child: Text(
-                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur.",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 20.0,
+                              Center(
+                                child: Container(
+                                  padding: const EdgeInsets.all(20),
+                                  child: const Center(
+                                    child: Text(
+                                      "Empowering Tech Dreams, Fueling Innovations, Where Investors and Tech Visionaries Unite!",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 20.0,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -90,13 +92,13 @@ class _FirstPageState extends State<FirstPage> {
                                           .loginpage // Navigate to the login page
                                       );
                                 },
-                                child: Icon(
+                                child: const Icon(
                                   Icons.arrow_forward_ios_rounded,
                                   size: 35,
                                   color: Color.fromRGBO(43, 98, 102, 1),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 20,
                               )
                             ],
