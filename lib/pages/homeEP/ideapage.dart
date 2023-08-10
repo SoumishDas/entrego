@@ -144,9 +144,14 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       // Add more chips as needed
                     ],
                   ),
-        ElevatedButton(child:const Text("Invest"),onPressed: (){
-          Navigator.pushNamed(context, MyRoutes.InvestPage);
-        },),
+                  baseState.user.isInvestor
+              ? ElevatedButton(
+                  child: const Text("Invest"),
+                  onPressed: () {
+                    Navigator.pushNamed(context, MyRoutes.InvestPage);
+                  },
+                )
+              : SizedBox(),
                 ],
               ),
             ),

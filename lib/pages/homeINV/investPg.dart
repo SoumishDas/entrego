@@ -1,4 +1,5 @@
 import 'package:entrego/globalState.dart';
+import 'package:entrego/utils/MyRoutes.dart';
 import 'package:entrego/utils/f_store.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -72,7 +73,9 @@ class _investPgState extends State<investPg> {
                   investment.addInvestmentIfNotExists().then((value) {
                     investment.addInvestmentAndUpdateEquity( _enteredValue, (_enteredValue/baseState.idea.fundingNeeded) * baseState.idea.equityOffered).then((value) {
                       baseState.idea.addInvestment(investment).then((value) {
-                        portfolio.addInvestment(investment);
+                        portfolio.addInvestment(investment).then((value) {
+                          Navigator.pushNamed(context, MyRoutes.homeINVPage);
+                        },);
                       });
                     },);
                   });

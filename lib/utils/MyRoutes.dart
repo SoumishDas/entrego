@@ -27,6 +27,7 @@ class MyRoutes {
   static String choice2Page = "/choose2";
   static String selectPage = "/signup/select";
   static String ideapage = "/homeINV/ideas";
+  static String ideapage_EP = "/homeEP/ideas";
   static String formForEP = "/signup/select/choose2/formForEP";
   static String  InvestPage = '/homeINV/invest';
 
@@ -35,6 +36,7 @@ class MyRoutes {
       // initialPage: (context) => const FirstPage(),
       initialPage: (context) => FirstPage(),
       ideapage: (context) => ProductDetailsPage(),
+      ideapage_EP: (context) => ProductDetailsPage(),
       homeEPPage: (context) => const homeEP(),
       homeINVPage: (context) => const homeINV(),
       loginpage: (context) => const login(),
