@@ -77,6 +77,7 @@ class _homeINVState extends State<homeINV> {
                   margin: EdgeInsets.all(10.0),
                   child: ListTile(
                     title: Text('Item ${_data[index].name}'),
+                    
                   ),
                 ),
               ],
