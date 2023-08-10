@@ -50,6 +50,7 @@ class _choiceState extends State<choice> {
       backgroundColor: Color.fromRGBO(255, 242, 242, 1),
       body: Container(
         height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
         decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage("assets/images/BG.jpg"), fit: BoxFit.cover)),
@@ -76,6 +77,19 @@ class _choiceState extends State<choice> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    SizedBox(
+                      height: 30,
+                    ),
+                    const Text(
+                      "Register",
+                      style: TextStyle(
+                          color: Color.fromRGBO(43, 98, 102, 1),
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
                     TextFormField(
                       decoration: InputDecoration(
                         labelText: 'First Name',
@@ -179,8 +193,8 @@ class _choiceState extends State<choice> {
                         Center(
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              primary: Color.fromRGBO(43, 98, 102, 1),
-                              onPrimary: Color.fromRGBO(255, 255, 255, 1),
+                              backgroundColor: Color.fromRGBO(43, 98, 102, 1),
+                              foregroundColor: Color.fromRGBO(255, 255, 255, 1),
                             ),
                             onPressed: () {
                               if (firstName.isEmpty ||
