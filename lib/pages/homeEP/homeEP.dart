@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../homeEP/navbarEP.dart';
+//import 'fl_chart/fl_chart.dart';
 
 class homeEP extends StatefulWidget {
   const homeEP({super.key});
@@ -13,103 +14,109 @@ class _homeEPState extends State<homeEP> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              height: 250,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(''),
-                  fit: BoxFit.cover,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                'Your Venture',
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            ),
-            const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 16),
-                  Text(
-                    'Project Name',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Tagline: Revolutionizing the Industry',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontStyle: FontStyle.italic,
-                    ),
-                  ),
-                  SizedBox(height: 16),
-                  Text(
-                    'Description:',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor eros ac euismod.',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  SizedBox(height: 16),
-                  Text(
-                    'Technologies Used:',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Wrap(
-                    spacing: 8,
+              SizedBox(height: 20),
+              Card(
+                elevation: 4,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Chip(label: Text('AI')),
-                      Chip(label: Text('Machine Learning')),
-                      Chip(label: Text('IoT')),
-                      // Add more chips as needed
+                      Text(
+                        'Card Title 1',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        'Card Content 1',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      SizedBox(height: 10),
+                      ElevatedButton(
+                        onPressed: () {
+                          // Add button 1 logic
+                        },
+                        child: Text('Button 1'),
+                      ),
                     ],
                   ),
-                  SizedBox(height: 16),
-                  Text(
-                    'Capital Received: \$500,000',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  Text(
-                    'Capital Left to Receive: \$500,000',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  Text(
-                    'Equity Given: 10%',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  SizedBox(height: 16),
-                  Text(
-                    'Tags:',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Wrap(
-                    spacing: 8,
-                    children: [
-                      Chip(label: Text('Innovation')),
-                      Chip(label: Text('Technology')),
-                      Chip(label: Text('Startup')),
-                    ],
-                  ),
-                ],
+                ),
               ),
-            ),
-          ],
+              SizedBox(height: 20),
+              Container(
+                height: 80, // Decreased height of the horizontal list view
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 5,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      width: 150,
+                      margin: EdgeInsets.all(8),
+                      color: Colors.grey[300],
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('Item $index'),
+                            SizedBox(height: 8),
+                            // Removed the horizontal bar
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              SizedBox(height: 20),
+              Card(
+                elevation: 4,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Card Title 2',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        'Card Content 2',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      SizedBox(height: 10),
+                      ElevatedButton(
+                        onPressed: () {
+                          // Add button 2 logic
+                        },
+                        child: Text('Button 2'),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-      bottomNavigationBar: const NavEP(),
     );
   }
 }

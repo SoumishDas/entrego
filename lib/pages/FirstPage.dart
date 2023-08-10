@@ -22,63 +22,56 @@ class _FirstPageState extends State<FirstPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: const Color.fromRGBO(14, 5, 15, 1),
-      body: Container(
-        child: Center(
+      body: Center(
+        child: Container(
+          alignment: Alignment.centerLeft,
+          padding: EdgeInsets.symmetric(horizontal: 20),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            // crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                decoration: const BoxDecoration(
-                  // color: Colors.white,
+                decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
-                  // boxShadow: [
-                  //   BoxShadow(
-                  //     color: Colors.black26,
-                  //     blurRadius: 10.0,
-                  //     spreadRadius: 2,
-                  //     offset: Offset(
-                  //       5,
-                  //       5,
-                  //     ),
-                  //   )
-                  // ],
                 ),
-                child: const Text(
+                child: Text(
                   "Entrego",
                   style: TextStyle(
-                      color: Color.fromRGBO(43, 98, 102, 1),
-                      fontSize: 70,
-                      fontWeight: FontWeight.w900),
+                    color: Color.fromRGBO(43, 98, 102, 1),
+                    fontSize: 70,
+                    fontWeight: FontWeight.w900,
+                  ),
                 ),
               ),
-              const SizedBox(
-                height: 250,
+              SizedBox(
+                height: 5,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      moveTo2ndPg(context);
-                    },
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 1000),
-                      alignment: Alignment.bottomCenter,
-                      padding: const EdgeInsets.fromLTRB(0, 0, 5, 9),
-                      decoration: BoxDecoration(
-                          // boxShadow: [20, 21, 22, 22],
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: const Icon(
-                        Icons.forward_rounded,
-                        color: Colors.black,
-                        size: 50,
-                      ),
-                    ),
+              Text(
+                "Welcome to Entrego!\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nec urna et elit tincidunt finibus.",
+                style: TextStyle(
+                  color: Color.fromRGBO(43, 98, 102, 1),
+                  fontSize: 18,
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  moveTo2ndPg(context);
+                },
+                child: Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  color: Color.fromRGBO(43, 98, 102, 1),
+                  size: 30,
+                ),
+                style: ElevatedButton.styleFrom(
+                  elevation: 0,
+                  backgroundColor: const Color(0xfafafa),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                ],
+                ),
               ),
             ],
           ),

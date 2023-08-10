@@ -26,6 +26,7 @@ class _NavEPState extends State<NavEP> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      fixedColor: Colors.white,
       backgroundColor: Color.fromRGBO(43, 98, 102, 1),
       currentIndex: currentIndex,
       iconSize: 25,
@@ -45,7 +46,7 @@ class _NavEPState extends State<NavEP> {
             Icons.settings,
             color: Colors.white,
           ),
-          label: "Login",
+          label: "Settings",
         ),
         BottomNavigationBarItem(
           icon: Icon(

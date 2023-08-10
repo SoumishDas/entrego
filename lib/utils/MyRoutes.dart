@@ -28,7 +28,7 @@ class MyRoutes {
   Map<String, Widget Function(BuildContext)> getRoutes(BuildContext context) {
     return {
       // initialPage: (context) => const FirstPage(),
-      initialPage: (context) => const homeEP(),
+      initialPage: (context) => homeEP(),
       ideapage: (context) => ProductDetailsPage(),
       homeEPPage: (context) => const homeEP(),
       homeINVPage: (context) => const homeINV(),
