@@ -124,9 +124,14 @@ class _homeINVState extends State<homeINV> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Total Money Invested: $totalMoney"),
-                            Text("No. of investments: $numInvestments"),
-                            Text("Portfolio left: $capitalLeft"),
+                            Text(
+                              "Total Money Invested: $totalMoney",
+                              style: TextStyle(fontSize: 20),
+                            ),
+                            Text("No. of investments: $numInvestments",
+                                style: TextStyle(fontSize: 20)),
+                            Text("Portfolio left: $capitalLeft",
+                                style: TextStyle(fontSize: 20)),
                           ],
                         ),
                       )
