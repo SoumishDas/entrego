@@ -339,6 +339,7 @@ class _formEPState extends State<formEP> {
                                     return;
                                   }else if (_equity >= 100){
                                     showErrorMessage("Please give Valid Equity Percentage");
+                                    return;
                                   }
 
                                   // Add logic to save the product details
@@ -367,6 +368,7 @@ class _formEPState extends State<formEP> {
                                               context, MyRoutes.homeEPPage);
                                         } else {
                                           showErrorMessage("Idea Could Not Be Saved");
+                                          return;
                                         }
                                       },
                                     );

@@ -187,6 +187,7 @@ class _loginState extends State<login> {
                                           // Registration failed
                                           showErrorMessage(
                                               "Failed. $success");
+                                              return;
                                         }
                                       },
                                       child: AnimatedContainer(
@@ -232,7 +233,9 @@ class _loginState extends State<login> {
                                           // Sign-in failed
                                           showErrorMessage(
                                               "Google Sign-In failed. Please try again.");
+                                              return;
                                         }
+
                                       },
                                       style: ElevatedButton.styleFrom(
                                           backgroundColor: Colors.white),
