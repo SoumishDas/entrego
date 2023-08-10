@@ -218,6 +218,7 @@ class _choiceState extends State<choice> {
                                       context, MyRoutes.homeINVPage);
                                 } else {
                                   showErrorMessage("Could Not Add User Details");
+                                  return;
                                 }
                               });
                             },

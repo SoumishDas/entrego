@@ -100,6 +100,7 @@ class _choice2State extends State<choice2> {
                         onPressed: () {
                           if(firstName.isEmpty || lastName.isEmpty){
                             showErrorMessage("Please Fill All Fields");
+                            return;
                           }
                           baseState.user.firstName = firstName;
                           baseState.user.lastName = lastName;
@@ -113,6 +114,7 @@ class _choice2State extends State<choice2> {
                                     context, MyRoutes.formForEP);
                               } else {
                                 showErrorMessage("Could Not Update User Details");
+                                return;
                               }
                             },
                           );

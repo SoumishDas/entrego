@@ -55,7 +55,14 @@ class Investor {
   equityObtained += equity;
     
   }
-
+  // Define a constructor to create an Investor object from a Map
+  Investor.fromMap(Map<String, dynamic> map)
+        
+      : investorId = map['investorId'],
+        uid = "",
+        ideaId = map['ideaId'],
+        amountInvested = map['amountInvested'],
+        equityObtained = map['equityObtained'];
   Map<String, dynamic> toMap() {
     return {
       'investorId': investorId,
@@ -244,6 +251,29 @@ class Portfolio {
       );
     }
   }
+
+  Future<List<Investor>> getAllInvestments() async {
+  final portfolioRef = FirebaseFirestore.instance
+      .collection('app_users')
+      .doc(uid)
+      .collection('portfolio')
+      .doc('investments');
+
+  final portfolioSnapshot = await portfolioRef.get();
+
+  if (portfolioSnapshot.exists) {
+    final data = portfolioSnapshot.data();
+    if (data != null && data['investments'] != null) {
+      final List<dynamic> investmentsData = data['investments'];
+      final List<Investor> investmentsList = investmentsData
+          .map<Investor>((e) => Investor.fromMap(e as Map<String, dynamic>))
+          .toList();
+      return investmentsList;
+    }
+  }
+
+  return [];
+}
 }
 
 
