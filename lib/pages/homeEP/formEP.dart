@@ -218,7 +218,13 @@ class _formEPState extends State<formEP> {
                       SizedBox(height: 10),
                       ElevatedButton(
                         onPressed: _selectImage,
-                        child: Text('Select Image'),
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Color.fromRGBO(43, 98, 102, 1),
+                            foregroundColor: Colors.white),
+                        child: Text(
+                          'Select Image',
+                          style: TextStyle(fontSize: 20),
+                        ),
                       ),
                       SizedBox(height: 10),
                       Text('Tags:', style: TextStyle(fontSize: 16)),

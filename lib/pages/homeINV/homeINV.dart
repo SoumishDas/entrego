@@ -126,40 +126,42 @@ class _homeINVState extends State<homeINV> {
                     if (index == _data.length) {
                       return const Center(child: CircularProgressIndicator());
                     }
-                    return InkWell(
-                      onTap: () {
-                        print("Image Link: ${_data[index].imgLink}");
-                        baseState.idea.entrepreneurId =
-                            _data[index].entrepreneurId;
-                        baseState.idea.getIdea().then(
-                          (value) {
-                            Navigator.pushNamed(context, MyRoutes.ideapage);
-                          },
-                        );
-                      },
-                      child: Card(
-                        margin: const EdgeInsets.all(3.0),
-                        child: ListTile(
-                          title: Text(
-                            '${_data[index].name}',
-                            style: TextStyle(fontWeight: FontWeight.w600),
-                          ),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const SizedBox(height: 5),
-                              Container(
-                                height: 145,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: NetworkImage(_data[index].imgLink),
-                                    fit: BoxFit.cover,
+                    return SingleChildScrollView(
+                      child: InkWell(
+                        onTap: () {
+                          print("Image Link: ${_data[index].imgLink}");
+                          baseState.idea.entrepreneurId =
+                              _data[index].entrepreneurId;
+                          baseState.idea.getIdea().then(
+                            (value) {
+                              Navigator.pushNamed(context, MyRoutes.ideapage);
+                            },
+                          );
+                        },
+                        child: Card(
+                          margin: const EdgeInsets.all(3.0),
+                          child: ListTile(
+                            title: Text(
+                              '${_data[index].name}',
+                              style: TextStyle(fontWeight: FontWeight.w600),
+                            ),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(height: 5),
+                                Container(
+                                  height: 145,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: NetworkImage(_data[index].imgLink),
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              const SizedBox(height: 8),
-                              Text(_data[index].sIdeaDescription),
-                            ],
+                                const SizedBox(height: 8),
+                                Text(_data[index].sIdeaDescription),
+                              ],
+                            ),
                           ),
                         ),
                       ),
