@@ -120,7 +120,7 @@ class _homeEPState extends State<homeEP> {
                     ),
                     SizedBox(height: 20),
                     Container(
-                      height: MediaQuery.of(context).size.height * 0.1,
+                      height: MediaQuery.of(context).size.height * 0.2,
                       child: investors.length == 0
                           ? Container(
                               width: 150,
@@ -141,28 +141,40 @@ class _homeEPState extends State<homeEP> {
                               itemCount: investors.length,
                               itemBuilder: (context, index) {
                                 return Container(
-                                  width: 150,
+                                  width: 175,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.white,
+                                  ),
+                                  padding: EdgeInsets.fromLTRB(5, 5, 5, 10),
                                   margin: EdgeInsets.all(8),
-                                  color: Colors.grey[300],
                                   child: Center(
                                     child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                            'Name ${investors[index].firstName}'),
+                                            'Name: ${investors[index].firstName}'),
                                         SizedBox(height: 8),
                                         Text(
                                             'Amount Invested: ${idea.investors[index].amountInvested}'),
                                         SizedBox(height: 8),
                                         Text(
-                                            'Equity Received: ${idea.investors[index].equityObtained}'),
+                                            'Equity Received: ${idea.investors[index].equityObtained}%'),
                                       ],
                                     ),
                                   ),
                                 );
                               },
                             ),
+                    ),
+                    SizedBox(height: 20),
+                    Text(
+                      'Project Details',
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     SizedBox(height: 20),
                     Card(
@@ -175,7 +187,7 @@ class _homeEPState extends State<homeEP> {
                             Text(
                               idea.name,
                               style: TextStyle(
-                                fontSize: 18,
+                                fontSize: 25,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
