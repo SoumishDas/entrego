@@ -37,18 +37,18 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
     BaseState baseState = Provider.of<BaseState>(context, listen: false);
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          width: 1000,
-          height: 1000,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: NetworkImage(
-                "https://images.unsplash.com/photo-1537420327992-d6e192287183?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGJhY2tncm91bmQlMjB0ZXh0dXJlfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60)",
-              ),
-              fit: BoxFit.fitHeight,
+      body: Container(
+        width: 1000,
+        height: 1000,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(
+              "assets/images/BG.jpg",
             ),
+            fit: BoxFit.fitHeight,
           ),
+        ),
+        child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -89,94 +89,112 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           blurRadius: 5,
                           offset: Offset(0, 3))
                     ]),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      idea.name,
-                      style: const TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        idea.name,
+                        style: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      idea.sIdeaDescription,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontStyle: FontStyle.italic,
+                      const SizedBox(height: 8),
+                      Text(
+                        idea.sIdeaDescription,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontStyle: FontStyle.italic,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 16),
-                    const Text(
-                      'Description: ',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                      const SizedBox(height: 16),
+                      const Text(
+                        'Description: ',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    Text(
-                      idea.bIdeaDescription,
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                    const SizedBox(height: 16),
-                    const Text(
-                      'Contacts:',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                      Text(
+                        idea.bIdeaDescription,
+                        style: const TextStyle(fontSize: 16),
                       ),
-                    ),
-                    Text(
-                      idea.contactInfo,
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                    const SizedBox(height: 16),
-                    Text(
-                      'Capital Required: \$ ${idea.fundingNeeded}',
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                    Text(
-                      'Equity Offered: ${idea.equityOffered}%',
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                    const SizedBox(height: 16),
-                    const Text(
-                      'Technologies Used:',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                      const SizedBox(height: 16),
+                      const Text(
+                        'Contacts:',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    Wrap(
-                      spacing: 8,
-                      children: [
-                        ...idea.techUsed.map((tech) => Chip(label: Text(tech))),
-                        // Add more chips as needed
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    const Text(
-                      'Tags:',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                      Text(
+                        idea.contactInfo,
+                        style: const TextStyle(fontSize: 16),
                       ),
-                    ),
-                    Wrap(
-                      spacing: 8,
-                      children: [
-                        ...idea.tags.map((tag) => Chip(label: Text(tag))),
-                        // Add more chips as needed
-                      ],
-                    ),
-                    ElevatedButton(
-                      child: const Text("Invest"),
-                      onPressed: () {
-                        Navigator.pushNamed(context, MyRoutes.InvestPage);
-                      },
-                    ),
-                  ],
+                      const SizedBox(height: 16),
+                      Text(
+                        'Capital Required: \$ ${idea.fundingNeeded}',
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                      Text(
+                        'Equity Offered: ${idea.equityOffered}%',
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                      const SizedBox(height: 16),
+                      const Text(
+                        'Technologies Used:',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Wrap(
+                        spacing: 8,
+                        children: [
+                          ...idea.techUsed
+                              .map((tech) => Chip(label: Text(tech))),
+                          // Add more chips as needed
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      const Text(
+                        'Tags:',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Wrap(
+                        spacing: 8,
+                        children: [
+                          ...idea.tags.map((tag) => Chip(label: Text(tag))),
+                          // Add more chips as needed
+                        ],
+                      ),
+                      ElevatedButton(
+                        child: const Text("Invest"),
+                        style: ElevatedButton.styleFrom(
+                          alignment: Alignment.center,
+                          fixedSize: Size(100, 45),
+                          backgroundColor: Color.fromRGBO(
+                              43, 98, 102, 1), // Set the background color
+                          foregroundColor: Colors.white, // Set the text color
+                          textStyle: TextStyle(
+                            fontSize: 20, // Set the text size
+                            fontWeight: FontWeight.w500,
+                          ),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                        ),
+                        onPressed: () {
+                          Navigator.pushNamed(context, MyRoutes.InvestPage);
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

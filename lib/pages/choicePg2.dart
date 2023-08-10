@@ -25,6 +25,7 @@ class _choice2State extends State<choice2> {
       backgroundColor: Color.fromRGBO(255, 242, 242, 1),
       body: Container(
         height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
         decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage("assets/images/BG.jpg"), fit: BoxFit.cover)),
