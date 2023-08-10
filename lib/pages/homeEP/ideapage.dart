@@ -27,10 +27,9 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
           children: [
             Container(
               height: 250, // Adjust the image container's height as needed
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(
-                      'assets/images/IDEATION.jpg'), // Replace with your image
+                  image: NetworkImage(idea.imgLink),
                   fit: BoxFit.cover,
                 ),
               ),
