@@ -31,6 +31,7 @@ class Investor {
 }
 
 class EntrepreneurIdea {
+  String imgLink;
   String entrepreneurId; // ID of the entrepreneur
   String name;
   String sIdeaDescription;
@@ -44,6 +45,7 @@ class EntrepreneurIdea {
   List<Investor> investors;
 
   EntrepreneurIdea({
+    this.imgLink = "",
     this.tags = const [],
     this.techUsed = const [],
     this.name = '',
@@ -63,6 +65,8 @@ class EntrepreneurIdea {
         .doc(entrepreneurId)
         .collection('ideas')
         .add({
+      'imgLink':imgLink,
+      'entrepreneurId':entrepreneurId,
       'name': name,
       'sIdeaDescription': sIdeaDescription,
       'bIdeaDescription': bIdeaDescription,
@@ -93,7 +97,7 @@ class EntrepreneurIdea {
     } else {
       Map<String, dynamic> data =
           documents.first.data()! as Map<String, dynamic>;
-
+      imgLink = data["imgLink"] ?? "";
       name = data["name"];
       sIdeaDescription = data["sIdeaDescription"];
       bIdeaDescription = data["bIdeaDescription"];
@@ -117,6 +121,36 @@ class EntrepreneurIdea {
       return true;
     }
   }
+   Future<List<EntrepreneurIdea>> getIdeasByTags(List<String> tags) async {
+    final QuerySnapshot res = await FirebaseFirestore.instance
+        .collectionGroup('ideas')
+        .where('tags', arrayContainsAny: tags)
+        .get();
+
+    final List<DocumentSnapshot> documents = res.docs;
+    List<EntrepreneurIdea> ideas = [];
+
+    for (var document in documents) {
+      Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+
+      ideas.add(EntrepreneurIdea(
+        entrepreneurId: data["entrepreneurId"],
+        name: data["name"],
+        sIdeaDescription: data["sIdeaDescription"],
+        bIdeaDescription: data["bIdeaDescription"],
+        fundingNeeded: data["fundingNeeded"],
+        equityOffered: data["equityOffered"],
+        capitalRaised: data["capitalRaised"],
+        contactInfo: data["contactInfo"],
+        tags: List<String>.from(data["tags"] ?? []),
+        techUsed: List<String>.from(data["techUsed"] ?? []),
+        // You can leave investors empty for now or fetch them separately if needed
+        investors: [],
+      ));
+    }
+
+    return ideas;
+   }
 
   Future<void> addInvestment(Investor investor) async {
     investors.add(investor);

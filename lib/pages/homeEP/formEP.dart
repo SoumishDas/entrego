@@ -3,6 +3,7 @@ import 'package:entrego/utils/MyRoutes.dart';
 import 'package:entrego/utils/f_store.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
 
 import 'package:provider/provider.dart';
@@ -39,6 +40,23 @@ class _formEPState extends State<formEP> {
       });
     }
   }
+
+  Future<String> _uploadImage() async {
+  if (_selectedImageFile == null) return "";
+
+  final Reference storageReference =
+      FirebaseStorage.instance.ref().child('images/${DateTime.now()}.png');
+
+  final UploadTask uploadTask = storageReference.putFile(_selectedImageFile!);
+  final TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() {
+    print('Image uploaded');
+  });
+
+  // Get the download URL of the uploaded image
+  final String imageUrl = await taskSnapshot.ref.getDownloadURL();
+  print('Download URL: $imageUrl');
+  return imageUrl;
+}
 
   List<String> get filteredTags {
     return tagList
@@ -235,6 +253,24 @@ class _formEPState extends State<formEP> {
                   SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
+                      if (_productName.isEmpty ||
+                          _shortDescription.isEmpty ||
+                          _longDescription.isEmpty ||
+                          _capitalRequired == 0.0 ||
+                          _equity == 0.0 ||
+                          _contactInfo.isEmpty ||
+                          selectedTags.isEmpty ||
+                          selectedTech.isEmpty ||
+                          _selectedImageFile == null) {
+                        // Display a snackbar or an alert to notify the user about missing fields
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Please fill in all fields.'),
+                          ),
+                        );
+                        return;
+                      }
+
                       // Add logic to save the product details
                       entrepreneurIdea.entrepreneurId = baseState.user.uid;
                       entrepreneurIdea.bIdeaDescription = _longDescription;
@@ -246,7 +282,9 @@ class _formEPState extends State<formEP> {
                       entrepreneurIdea.tags = selectedTags;
                       entrepreneurIdea.techUsed = selectedTech;
 
-                      entrepreneurIdea.saveIdea().then(
+                      _uploadImage().then((value) {
+                        entrepreneurIdea.imgLink = value;
+                        entrepreneurIdea.saveIdea().then(
                         (value) {
                           if (value == true) {
                             Navigator.pushNamed(context, MyRoutes.homeEPPage);
@@ -255,7 +293,10 @@ class _formEPState extends State<formEP> {
                           }
                         },
                       );
+                    
+                      });
                     },
+                      
                     child: Text('Save Product'),
                   ),
                 ],
