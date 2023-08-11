@@ -1,5 +1,46 @@
 class tags {
-  static List<String> techTags = ["Ruby","Python","Dart","Assembly","Flutter","Html","Css/JS"];
-  static List<String> genreTags = ["Financial","HealthCare","Education","Security","Public Welfare"]; 
-
+  static List<String> techTags = [
+    "Ruby",
+    "Python",
+    "Dart",
+    "Assembly",
+    "Flutter",
+    "Html",
+    "Css",
+    "JS",
+    "Java",
+    "C++",
+    "C#",
+    "C",
+    "Neural Network",
+    "Deep Learning",
+    "AI",
+    "GO",
+    "TensorFlow",
+    "Flask",
+    "Django",
+    "Rust",
+  ];
+  static List<String> genreTags = [
+    'Education',
+    'Financial',
+    'Technology',
+    'Healthcare',
+    'Hospitality',
+    'Retail',
+    'Entertainment',
+    'Real Estate',
+    'Automotive',
+    'Food & Beverage',
+    'Fashion',
+    'Fitness',
+    'Art & Design',
+    'Travel',
+    'Media',
+    'Beauty',
+    'Legal',
+    'Consulting',
+    'Nonprofit',
+    'Manufacturing'
+  ];
 }
