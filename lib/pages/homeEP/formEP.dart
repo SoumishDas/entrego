@@ -333,6 +333,10 @@ class _formEPState extends State<formEP> {
                               ),
                               SizedBox(height: 20),
                               ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor:
+                                        const Color.fromRGBO(43, 98, 102, 1),
+                                    foregroundColor: Colors.white),
                                 onPressed: () {
                                   if (_productName.isEmpty ||
                                       _shortDescription.isEmpty ||
@@ -383,7 +387,10 @@ class _formEPState extends State<formEP> {
                                     );
                                   });
                                 },
-                                child: Text('Save Product'),
+                                child: const Text(
+                                  'Save Product',
+                                  style: TextStyle(color: Colors.white),
+                                ),
                               ),
                             ],
                           ),
