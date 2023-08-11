@@ -27,39 +27,38 @@ class AuthState {
       UserCredential result = await auth.signInWithCredential(authCred);
       User? user = result.user;
       if (user != null) {
-        final QuerySnapshot res = await FirebaseFirestore.instance
-            .collection('users')
-            .where('id', isEqualTo: user.uid)
-            .get(); //firebase query to get information about user
-        final List<DocumentSnapshot> documents = res.docs;
-        if (documents.isEmpty) {
+        print("YESSSSSSSSSSSSSSSSSSSSSSSSSS");
+        
+        
+        
           // Update data on the server for new user
-          FirebaseFirestore.instance.collection('users').doc(user.uid).set({
-            'nickname': user.displayName,
-            'photoUrl': user.photoURL,
-            'id': user.uid,
-          });
-
+          
+          print("YEZZZZZZZZZZZZZZZZZ");
           baseState.user.email = user.email!;
           baseState.user.getUser(user.uid).then((value) {
             if (value == true) {
-              print(user.displayName);
+              
               if (baseState.user.isInvestor) {
+                print("@@@@@@@@@@@@@@@@@");
                 Navigator.pushNamed(context, MyRoutes.homeINVPage);
               } else {
+                print("&&&&&&&&&&&&&&&&&&&");
                 Navigator.pushNamed(context, MyRoutes.homeEPPage);
               }
             } else {
               print("!!!!!!!!!!!!!!!!!!!!!");
+              baseState.user.uid=user.uid;
               Navigator.pushNamed(context, MyRoutes.selectPage);
             }
             return true;
           });
         }
-      } else {
-        return false;
-      }
+      
+    }else{
+      print("ERRORRRRRRRRRRRR");
+      return false;
     }
-    return false;
+    print("F2222222222222F223333333333FFFFFFFFFFFFFF24242424FFFFFFFFFFF");
+    return true;
   }
 }

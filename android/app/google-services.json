@@ -14,8 +14,12 @@
       },
       "oauth_client": [
         {
-          "client_id": "504381590799-83rjn00fjeeomi3n05k9dg9ajahgaopn.apps.googleusercontent.com",
-          "client_type": 3
+          "client_id": "504381590799-s5ogtkjoj402asvimg2pi9av2uj8ff0j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.entrego",
+            "certificate_hash": "7bb5ed3af508a8fe6451a9d5a0269f4fd6adbdf4"
+          }
         }
       ],
       "api_key": [
@@ -25,12 +29,7 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "504381590799-83rjn00fjeeomi3n05k9dg9ajahgaopn.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }
