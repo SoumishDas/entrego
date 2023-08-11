@@ -157,7 +157,7 @@ class _homeEPState extends State<homeEP> {
                                             'Name: ${investors[index].firstName}'),
                                         SizedBox(height: 8),
                                         Text(
-                                            'Amount Invested: ${idea.investors[index].amountInvested}'),
+                                            'Amt Invested: ${idea.investors[index].amountInvested}'),
                                         SizedBox(height: 8),
                                         Text(
                                             'Equity Received: ${idea.investors[index].equityObtained}%'),
